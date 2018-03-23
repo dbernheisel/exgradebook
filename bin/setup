@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Exit if any subcommand fails
+set -e
+
+# Display the command being run
+set -x
+
+# Unset CDPATH to avoid issues with make later on
+unset CDPATH
+
+# check if phantomjs is installed
+if ! command -v phantomjs >/dev/null; then
+  echo "You must install PhantomJS 2.x before continuing."
+  exit 1
+else
+  phantomjs_version=$(phantomjs -v)
+  major_version="${phantomjs_version%.*.*}"
+
+  if [ "$major_version" -lt 2 ]; then
+    echo "Please update your PhantomJS to 2.x before continuing."
+    exit 1
+  fi
+fi
+
+if [ -z "$CI" ]; then
+  echo "Removing previous build artifacts"
+  rm -rf assets/node_modules
+  rm -rf deps _build
+  asdf plugin-update --all
+  asdf install
+else
+  [[ ! -d ~/.asdf ]] && git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.1
+  # shellcheck source=/dev/null
+  . "$HOME/.asdf/asdf.sh"
+  # shellcheck disable=SC2016
+  echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+  if ! grep -E nodejs <(asdf plugin-list) > /dev/null; then
+    asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+    asdf plugin-update --all
+    # shellcheck disable=SC2046
+    asdf install $(grep nodejs .tool-versions)
+  fi
+fi
+
+echo "Installing dependencies and compiling"
+mix local.hex --force
+mix local.rebar --force
+mix deps.get
+mix compile
+
+# Set up database
+echo "Setting up the database"
+mix ecto.reset
+MIX_ENV="test" mix ecto.reset
+
+# Grab JS dependencies from NPM
+echo "Installing npm dependencies"
+PROJECT_ROOT=$(pwd)
+cd assets
+npm install --progress=false
+
+echo "Compiling assets"
+node_modules/brunch/bin/brunch build
+cd "$PROJECT_ROOT"

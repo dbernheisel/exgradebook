@@ -1,0 +1,25 @@
+#!/bin/sh
+set -e
+
+kill_phantoms() {
+  echo "Killing phantomjs processes"
+  pkill -f "wallaby-exgradebook"
+}
+
+trap kill_phantoms INT
+
+if [ ! -z "$CI" ]; then
+  # shellcheck source=/dev/null
+  . "$HOME/.asdf/asdf.sh"
+fi
+node_modules/.bin/brunch build
+mix compile --force --warnings-as-errors
+
+if [ -z "$CI" ]; then
+  mix test
+  kill_phantoms
+else
+  mix development_seeds > /dev/null
+  MIX_ENV="test" mix ecto.reset
+  mix test
+fi
