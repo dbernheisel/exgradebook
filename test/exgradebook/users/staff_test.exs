@@ -1,12 +1,16 @@
 defmodule Exgradebook.Users.StaffTest do
-  use Exgradebook.DataCase
+  use Exgradebook.DataCase, async: true
   alias Exgradebook.Users
   alias Exgradebook.Users.Staff
 
   describe "list_staff" do
     test "returns all staff" do
+      Users.list_staff()
       staff = insert(:teacher)
-      assert Users.list_staff() == [staff]
+
+      [result] = Users.list_staff()
+
+      assert result.id == staff.id
     end
   end
 

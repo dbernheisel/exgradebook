@@ -5,12 +5,17 @@ defmodule ExgradebookWeb.Staff.UserController do
 
   def index(conn, _params) do
     staff = Users.list_staff()
-    render(conn, "index.html", staff: staff)
+
+    conn
+    |> assign(:staff, staff)
+    |> render(:index)
   end
 
   def new(conn, _params) do
     changeset = Users.prepare_staff(%Staff{})
-    render(conn, "new.html", changeset: changeset)
+
+    conn
+    |> render_new(changeset)
   end
 
   def create(conn, %{"staff" => staff_params}) do
@@ -19,20 +24,27 @@ defmodule ExgradebookWeb.Staff.UserController do
         conn
         |> put_flash(:info, "Staff created successfully.")
         |> redirect(to: staff_user_path(conn, :show, staff))
+
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> render_new(changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
     staff = Users.get_staff!(id)
-    render(conn, "show.html", staff: staff)
+
+    conn
+    |> assign(:staff, staff)
+    |> render(:show)
   end
 
   def edit(conn, %{"id" => id}) do
     staff = Users.get_staff!(id)
     changeset = Users.prepare_staff(staff)
-    render(conn, "edit.html", staff: staff, changeset: changeset)
+
+    conn
+    |> render_edit(staff, changeset)
   end
 
   def update(conn, %{"id" => id, "staff" => staff_params}) do
@@ -44,7 +56,8 @@ defmodule ExgradebookWeb.Staff.UserController do
         |> put_flash(:info, "Staff updated successfully.")
         |> redirect(to: staff_user_path(conn, :show, staff))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", staff: staff, changeset: changeset)
+        conn
+        |> render_edit(staff, changeset)
     end
   end
 
@@ -55,5 +68,18 @@ defmodule ExgradebookWeb.Staff.UserController do
     conn
     |> put_flash(:info, "Staff deleted successfully.")
     |> redirect(to: staff_user_path(conn, :index))
+  end
+
+  defp render_edit(conn, user, changeset) do
+    conn
+    |> assign(:staff, user)
+    |> assign(:changeset, changeset)
+    |> render(:edit)
+  end
+
+  defp render_new(conn, changeset) do
+    conn
+    |> assign(:changeset, changeset)
+    |> render(:new)
   end
 end

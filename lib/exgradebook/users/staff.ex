@@ -1,8 +1,8 @@
 defmodule Exgradebook.Users.Staff do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Doorman.Auth.Bcrypt
-  alias Doorman.Auth.Secret
+  import Doorman.Auth.Bcrypt, only: [hash_password: 1]
+  import Doorman.Auth.Secret, only: [put_session_secret: 1]
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -12,7 +12,7 @@ defmodule Exgradebook.Users.Staff do
     field :hashed_password, :string
     field :last_name, :string
     field :password, :string, virtual: true
-    field :role, :string
+    field :role, :string, default: "teacher"
     field :session_secret, :string
 
     timestamps()
@@ -41,9 +41,8 @@ defmodule Exgradebook.Users.Staff do
     struct
     |> cast(params, [:password])
     |> changeset(params)
-    |> Secret.put_session_secret()
-    |> Bcrypt.hash_password()
-    |> validate_required([:hashed_password, :session_secret])
+    |> hash_password()
+    |> put_session_secret()
   end
 
   defp validate_role(changeset) do

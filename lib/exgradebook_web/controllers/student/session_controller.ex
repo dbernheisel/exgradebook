@@ -1,7 +1,7 @@
 defmodule ExgradebookWeb.Student.SessionController do
   use ExgradebookWeb, :controller
   #alias Exgradebook.Users.Student
-  alias ExgradebookWeb.Session
+  #alias ExgradebookWeb.Session
 
   def new(conn, _params) do
     conn

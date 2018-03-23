@@ -10,7 +10,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
     end
   end
 
-  describe "new staff" do
+  describe "new" do
     test "renders form", %{conn: conn} do
       admin = insert(:admin)
       conn = get conn, staff_user_path(conn, :new, as: admin.id)
@@ -19,7 +19,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
     end
   end
 
-  describe "create staff" do
+  describe "create" do
     test "redirects to show when data is valid", %{conn: conn} do
       admin = insert(:admin)
       params = params_for(:teacher) |> without_secrets
@@ -41,7 +41,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
     end
   end
 
-  describe "edit staff" do
+  describe "edit" do
     test "renders form for editing chosen staff", %{conn: conn} do
       admin = insert(:admin)
       staff = insert(:teacher)
@@ -51,7 +51,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
     end
   end
 
-  describe "update staff" do
+  describe "update" do
     test "redirects when data is valid", %{conn: conn} do
       admin = insert(:admin)
       staff = insert(:teacher)
@@ -73,7 +73,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
     end
   end
 
-  describe "delete staff" do
+  describe "delete" do
     test "deletes chosen staff", %{conn: conn} do
       admin = insert(:admin)
       staff = insert(:teacher)
