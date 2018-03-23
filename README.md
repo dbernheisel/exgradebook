@@ -11,13 +11,26 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
-## Learn more
+## Getting Started
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+After you have cloned this repo, run this setup script to set up your machine
+with the necessary dependencies to run and test this app:
+
+    % ./bin/setup
+
+It assumes you have a machine equipped with [asdf], [asdf-elixir],
+[asdf-erlang], [asdf-nodejs], [PhantomJS], [postgres], etc.
+
+After setting up, you can run the application:
+
+    % ./bin/server
+
+[asdf]: https://github.com/asdf-vm/asdf
+[asdf-elixir]: https://github.com/asdf-vm/asdf-elixir
+[asdf-erlang]: https://github.com/asdf-vm/asdf-erlang
+[asdf-nodejs]: https://github.com/asdf-vm/asdf-nodejs
+[PhantomJS]: http://phantomjs.org/
+[postgres]: http://postgresapp.com/
 
 ## Requirements
 
