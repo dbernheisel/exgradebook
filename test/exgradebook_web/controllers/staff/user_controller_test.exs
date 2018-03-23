@@ -22,7 +22,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
   describe "create" do
     test "redirects to show when data is valid", %{conn: conn} do
       admin = insert(:admin)
-      params = params_for(:teacher) |> without_secrets
+      params = params_for(:teacher) |> for_registration
       conn = post conn, staff_user_path(conn, :create, as: admin.id), staff: params
 
       assert %{id: id} = redirected_params(conn)
@@ -34,7 +34,8 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       admin = insert(:admin)
-      params = params_for(:teacher, role: "invalid") |> without_secrets
+      params =
+        params_for(:teacher, role: "invalid") |> for_registration
       conn = post conn, staff_user_path(conn, :create, as: admin.id), staff: params
 
       assert html_response(conn, 200) =~ "New Staff"
@@ -88,7 +89,6 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
 
   defp without_secrets(params) do
     params
-    |> Map.delete(:password)
     |> Map.delete(:hashed_password)
     |> Map.delete(:session_secret)
   end

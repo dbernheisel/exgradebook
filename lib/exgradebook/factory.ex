@@ -20,4 +20,11 @@ defmodule Exgradebook.Factory do
   def admin_factory do
     build(:teacher, role: "administrator")
   end
+
+  def for_registration(user) do
+    user
+    |> Map.delete(:hashed_password)
+    |> Map.delete(:session_secret)
+    |> Map.put(:password, "password")
+  end
 end

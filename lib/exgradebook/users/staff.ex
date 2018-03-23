@@ -33,26 +33,17 @@ defmodule Exgradebook.Users.Staff do
     struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
-    |> validate_role
+    |> validate_inclusion(:role, @valid_roles)
     |> unique_constraint(:email)
   end
 
   def registration_changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:password])
+    |> validate_required([:password])
     |> changeset(params)
     |> hash_password()
     |> put_session_secret()
-  end
-
-  defp validate_role(changeset) do
-    case get_field(changeset, :role) do
-      role when role in @valid_roles ->
-        changeset
-
-      _ ->
-        changeset
-        |> add_error(:role, "Role not valid")
-    end
+    |> validate_required([:hashed_password, :session_secret])
   end
 end

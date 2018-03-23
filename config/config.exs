@@ -29,7 +29,7 @@ config :doorman,
   user_module: Exgradebook.User
 
 config :formulator,
-  translate_error_module: Exgradebook.ErrorHelpers,
+  translate_error_module: ExgradebookWeb.ErrorHelpers,
   wrapper_class: "form-group"
 
 # Import environment specific config. This must remain at the bottom

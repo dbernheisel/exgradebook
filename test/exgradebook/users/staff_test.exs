@@ -3,6 +3,65 @@ defmodule Exgradebook.Users.StaffTest do
   alias Exgradebook.Users
   alias Exgradebook.Users.Staff
 
+  describe "changeset" do
+    test "requires fields" do
+      params = params_for(
+        :teacher,
+        email: nil,
+        first_name: nil,
+        last_name: nil
+      )
+
+      changeset = Staff.changeset(%Staff{}, params)
+
+      assert changeset.errors[:email]
+      assert changeset.errors[:first_name]
+      assert changeset.errors[:last_name]
+    end
+
+    test "requires role to be valid" do
+      params = params_for(
+        :teacher,
+        role: "not valid"
+      )
+
+      changeset = Staff.changeset(%Staff{}, params)
+
+      assert changeset.errors[:role]
+    end
+
+    test "requires email to be unique" do
+      existing_user = insert(:staff, email: "test@example.com")
+      params = params_for(:teacher, email: existing_user.email)
+
+      {:error, changeset} =
+        %Staff{}
+        |> Staff.changeset(params)
+        |> Repo.insert
+
+      assert changeset.errors[:email]
+    end
+  end
+
+  describe "registration_changeset" do
+    test "hashes the provided password and inserts session secret" do
+      params = params_for(:teacher, password: "secret")
+
+      changeset = Staff.registration_changeset(%Staff{}, params)
+
+      assert changeset.changes[:hashed_password]
+      assert changeset.changes[:session_secret]
+    end
+
+    test "requires a password" do
+      invalid_params = params_for(:teacher, password: nil)
+
+      changeset = Staff.registration_changeset(%Staff{}, invalid_params)
+
+      assert changeset.errors[:password]
+    end
+  end
+
   describe "list_staff" do
     test "returns all staff" do
       Users.list_staff()
@@ -24,14 +83,14 @@ defmodule Exgradebook.Users.StaffTest do
 
   describe "create_staff/1" do
     test "with valid data creates a staff" do
-      params = params_for(:teacher) |> without_secrets
+      params = params_for(:teacher) |> for_registration
 
       assert {:ok, %Staff{}} = Users.create_staff(params)
-      assert Repo.get_by(Staff, params)
+      assert Repo.get_by(Staff, params |> without_secrets)
     end
 
     test "with invalid data returns error changeset" do
-      params = params_for(:teacher, last_name: nil) |> without_secrets
+      params = params_for(:teacher, last_name: nil) |> for_registration
 
       assert {:error, %Ecto.Changeset{}} = Users.create_staff(params)
     end
