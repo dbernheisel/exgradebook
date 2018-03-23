@@ -1,4 +1,4 @@
-defmodule ExgradebookWeb.StaffView do
+defmodule ExgradebookWeb.Staff.UserView do
   use ExgradebookWeb, :view
   alias Exgradebook.Users.Staff
 

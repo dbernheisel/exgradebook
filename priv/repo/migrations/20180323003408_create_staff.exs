@@ -17,5 +17,6 @@ defmodule Exgradebook.Repo.Migrations.CreateStaff do
       timestamps()
     end
 
+    create unique_index(:staff, [:email])
   end
 end

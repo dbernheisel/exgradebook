@@ -8,7 +8,8 @@ defmodule ExgradebookWeb.Plug.RequireLogin do
       conn
     else
       conn
-      |> Phoenix.Controller.redirect(to: "/login")
+      |> Phoenix.Controller.put_flash(:error, "Please log in")
+      |> Phoenix.Controller.redirect(to: "/")
       |> halt
     end
   end

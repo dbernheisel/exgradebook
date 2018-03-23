@@ -1,7 +1,7 @@
 defmodule ExgradebookWeb.Session do
   use Doorman.Login
   alias Exgradebook.Users.Staff
-  alias Exgradebook.Users.Student
+  #alias Exgradebook.Users.Student
 
   @session_key :user_id
   @session_secret :session_secret
@@ -33,8 +33,8 @@ defmodule ExgradebookWeb.Session do
     repo = Application.get_env(:doorman, :repo)
 
     if !is_nil(id) && !is_nil(secret) do
-      repo.get_by(Staff, [id: id, session_secret: secret]) ||
-        repo.get_by(Student, [id: id, session_secret: secret])
+      repo.get_by(Staff, [id: id, session_secret: secret])
+        #repo.get_by(Student, [id: id, session_secret: secret])
     end
   end
 end

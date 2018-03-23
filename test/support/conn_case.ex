@@ -14,6 +14,7 @@ defmodule ExgradebookWeb.ConnCase do
   """
 
   use ExUnit.CaseTemplate
+  alias ExgradebookWeb.Test.ConnHelper
 
   using do
     quote do
@@ -33,7 +34,7 @@ defmodule ExgradebookWeb.ConnCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Exgradebook.Repo, {:shared, self()})
     end
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    {:ok, conn: ConnHelper.build_conn_with_session}
   end
 
 end

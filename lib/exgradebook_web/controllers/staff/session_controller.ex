@@ -1,6 +1,6 @@
 defmodule ExgradebookWeb.Staff.SessionController do
   use ExgradebookWeb, :controller
-  alias ExgradebookWeb.Users.Staff
+  alias Exgradebook.Users.Staff
   alias ExgradebookWeb.Session
 
   def new(conn, _params) do
@@ -13,16 +13,11 @@ defmodule ExgradebookWeb.Staff.SessionController do
       conn
       |> Session.login(user)
       |> put_flash(:notice, gettext("Successfully signed in"))
+      |> redirect(to: staff_user_path(conn, :index))
     else
       conn
       |> put_flash(:error, gettext("Incorrect email or password"))
-      #|> redirect(to: staff_session_path(conn, :new))
+      |> redirect(to: staff_session_path(conn, :new))
     end
-  end
-
-  def delete(conn, _params) do
-    conn
-    |> Session.logout
-    #|> redirect(to: staff_sesion_path(conn, :new))
   end
 end

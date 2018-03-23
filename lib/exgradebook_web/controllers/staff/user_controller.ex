@@ -1,4 +1,4 @@
-defmodule ExgradebookWeb.StaffController do
+defmodule ExgradebookWeb.Staff.UserController do
   use ExgradebookWeb, :controller
   alias Exgradebook.Users
   alias Exgradebook.Users.Staff
@@ -18,7 +18,7 @@ defmodule ExgradebookWeb.StaffController do
       {:ok, staff} ->
         conn
         |> put_flash(:info, "Staff created successfully.")
-        |> redirect(to: staff_path(conn, :show, staff))
+        |> redirect(to: staff_user_path(conn, :show, staff))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -42,7 +42,7 @@ defmodule ExgradebookWeb.StaffController do
       {:ok, staff} ->
         conn
         |> put_flash(:info, "Staff updated successfully.")
-        |> redirect(to: staff_path(conn, :show, staff))
+        |> redirect(to: staff_user_path(conn, :show, staff))
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", staff: staff, changeset: changeset)
     end
@@ -54,6 +54,6 @@ defmodule ExgradebookWeb.StaffController do
 
     conn
     |> put_flash(:info, "Staff deleted successfully.")
-    |> redirect(to: staff_path(conn, :index))
+    |> redirect(to: staff_user_path(conn, :index))
   end
 end
