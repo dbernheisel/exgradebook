@@ -1,4 +1,13 @@
 <div class="container narrow-container page-content">
+
+  <div>
+    Example users:
+    <ul>
+      <li>admin@example.com / password</li>
+      <li>teacher@example.com / password</li>
+    </ul>
+  </div>
+
   <%= form_for @conn, staff_session_path(@conn, :create), [as: :login], fn form -> %>
     <div class="box">
       <%= input form, :email,

@@ -20,6 +20,7 @@ defmodule ExgradebookWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
+      import Phoenix.View
       import ExgradebookWeb.Router.Helpers
       import Exgradebook.Factory
 

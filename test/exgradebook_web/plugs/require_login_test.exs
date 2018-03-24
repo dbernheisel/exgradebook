@@ -19,7 +19,6 @@ defmodule ExgradebookWeb.Plug.RequireLoginTest do
         |> RequireLogin.call([])
 
       assert conn.halted
-
     end
   end
 end

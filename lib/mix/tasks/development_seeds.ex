@@ -22,7 +22,7 @@ defmodule Mix.Tasks.DevelopmentSeeds do
     UsefulOutput.add("Added staff #{teacher.email}/password")
     insert_list(20, :teacher)
 
-    student = create_user(:student, email: "student@example.com", first_name: "Test", last_name: "Student")
+    student = create_user(:student, email: "student@student.example.com", first_name: "Test", last_name: "Student")
     UsefulOutput.add("Added student #{student.email}/password")
 
     insert_list(100, :student)
