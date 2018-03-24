@@ -1,4 +1,11 @@
-<h2>Show Staff</h2>
+<%= breadcrumbs([
+  link("Staff Directory", to: staff_user_path(@conn, :index)),
+  content_tag(:li, display_name(@staff), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2>Show <%= display_name(@staff) %></h2>
+</header>
 
 <ul>
   <li>

@@ -3,8 +3,8 @@
   <div>
     Example users:
     <ul>
-      <li>admin@example.com / password</li>
-      <li>teacher@example.com / password</li>
+      <li><code>admin@example.com</code> / <code>password</code></li>
+      <li><code>teacher@example.com</code> / <code>password</code></li>
     </ul>
   </div>
 
@@ -14,13 +14,13 @@
         as: :email,
         placeholder: gettext("Email"),
         autofocus: "true",
-        label: [class: "control-label"],
+        label: [class: "col-form-label"],
         class: "form-control"
       %>
       <%= input form, :password,
         as: :password,
         placeholder: gettext("Password"),
-        label: [class: "control-label"],
+        label: [class: "col-form-label"],
         class: "form-control"
       %>
       <div class="stacked-form-actions">

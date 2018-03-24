@@ -1,0 +1,10 @@
+<%= for flash_key <- [:info, :warning, :danger, :primary, :secondary, :success, :dark, :light] do %>
+  <%= if flash = get_flash(@conn, flash_key) do %>
+    <div data-role="alert" class="alert alert-<%= flash_key %>">
+      <%= raw flash %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+<% end %>

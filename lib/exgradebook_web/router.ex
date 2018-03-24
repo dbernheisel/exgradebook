@@ -10,6 +10,18 @@ defmodule ExgradebookWeb.Router do
     plug :put_secure_browser_headers
     plug ExgradebookWeb.Plug.TestSessionBackdoor
     plug ExgradebookWeb.Session
+    plug NavigationHistory.Tracker,
+      excluded_paths: ["/logout", ~r/\/login/]
+  end
+
+  pipeline :staff do
+    plug RequireLogin
+    plug :put_layout, {ExgradebookWeb.LayoutView, "staff.html"}
+  end
+
+  pipeline :student do
+    plug RequireLogin
+    plug :put_layout, {ExgradebookWeb.LayoutView, "student.html"}
   end
 
   scope "/", ExgradebookWeb do
@@ -24,12 +36,12 @@ defmodule ExgradebookWeb.Router do
   end
 
   scope "/student", ExgradebookWeb.Student, as: :student do
-    pipe_through [:browser, RequireLogin]
+    pipe_through [:browser, :student]
     #resources "/courses", StudentController
   end
 
   scope "/staff", ExgradebookWeb.Staff, as: :staff do
-    pipe_through [:browser, RequireLogin]
+    pipe_through [:browser, :staff]
     resources "/users", UserController
     #resources "/students", StudentController
     #resources "/semesters", StudentController

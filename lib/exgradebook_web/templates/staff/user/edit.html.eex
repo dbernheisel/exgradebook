@@ -1,5 +1,12 @@
-<h2>Edit Staff</h2>
+<%= breadcrumbs([
+  link("Staff Directory", to: staff_user_path(@conn, :index)),
+  link(display_name(@staff), to: staff_user_path(@conn, :show, @staff)),
+  content_tag(:li, gettext("Edit"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2>Edit <%= display_name(@staff) %></h2>
+</header>
 
 <%= render "form.html", Map.put(assigns, :action, staff_user_path(@conn, :update, @staff)) %>
 
-<span><%= link "Back", to: staff_user_path(@conn, :index) %></span>

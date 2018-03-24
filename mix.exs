@@ -38,6 +38,7 @@ defmodule Exgradebook.Mixfile do
       {:envy, "~> 1.1"},
       {:ex_machina, "~> 2.0"},
       {:formulator, "~> 0.1", github: "thoughtbot/formulator"},
+      {:navigation_history, "~> 0.0"},
       {:gettext, "~> 0.11"},
       {:phoenix, "~> 1.3"},
       {:phoenix_ecto, "~> 3.2"},

@@ -13,10 +13,8 @@
 
   <body>
     <div class="container">
-      <header class="header">
-        <span class="logo"></span>
-      </header>
 
+      <%= render "staff_nav.html", conn: @conn %>
       <%= render "flashes.html", conn: @conn %>
 
       <main role="main" class="container">

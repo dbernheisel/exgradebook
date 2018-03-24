@@ -5,19 +5,26 @@
     </div>
   <% end %>
 
-  <%= input f, :first_name, label: [class: "control-label"], class: "form-control" %>
-  <%= input f, :last_name, label: [class: "control-label"], class: "form-control" %>
-  <%= input f, :email, as: :email, label: [class: "control-label"], class: "form-control" %>
+  <%= input f, :first_name, label: [class: "col-form-label"], class: "form-control" %>
+  <%= input f, :last_name, label: [class: "col-form-label"], class: "form-control" %>
+  <%= input f, :email, as: :email, label: [class: "col-form-label"], class: "form-control" %>
 
   <div class="form-group">
-    <%= label f, :role, class: "control-label" %>
+    <%= label f, :role, class: "col-form-label" %>
     <%= select f, :role, role_options(), class: "form-control" %>
     <%= error_tag f, :role %>
   </div>
 
-  <%= input f, :password, as: :password, label: [class: "control-label"], class: "form-control" %>
+  <%= input f, :password, as: :password, label: [class: "col-form-label"], class: "form-control" %>
 
-  <div class="form-group">
-    <%= submit "Submit", class: "btn btn-primary" %>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <%= link to: redirect_back(@conn), class: "btn btn-dark" do %>
+      <i class="fas fa-chevron-left"></i>
+      <span>Back</span>
+    <% end %>
+    <%= submit class: "btn btn-success" do %>
+      <span>Submit</span>
+      <i class="fas fa-chevron-right"></i>
+    <% end %>
   </div>
 <% end %>

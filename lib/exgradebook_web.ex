@@ -41,6 +41,8 @@ defmodule ExgradebookWeb do
       import ExgradebookWeb.ErrorHelpers
       import ExgradebookWeb.Gettext
       import Formulator
+      import ExgradebookWeb.Component.Breadcrumb
+      import ExgradebookWeb.HistoryHelpers
     end
   end
 

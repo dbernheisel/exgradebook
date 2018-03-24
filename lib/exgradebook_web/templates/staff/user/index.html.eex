@@ -1,4 +1,11 @@
-<h2>Listing Staff</h2>
+<%= breadcrumbs([
+  content_tag(:li, gettext("Staff Directory"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <%= link gettext("New Staff"), to: staff_user_path(@conn, :new), class: "float-right btn btn-primary" %>
+  <h2><%= gettext("Staff Directory") %></h2>
+</header>
 
 <table class="table">
   <thead>
@@ -20,13 +27,11 @@
       <td><%= staff.role %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: staff_user_path(@conn, :show, staff), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: staff_user_path(@conn, :edit, staff), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Show", to: staff_user_path(@conn, :show, staff), class: "btn btn-secondary btn-xs" %></span>
+        <span><%= link "Edit", to: staff_user_path(@conn, :edit, staff), class: "btn btn-secondary btn-xs" %></span>
         <span><%= link "Delete", to: staff_user_path(@conn, :delete, staff), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Staff", to: staff_user_path(@conn, :new) %></span>

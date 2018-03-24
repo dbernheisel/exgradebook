@@ -16,7 +16,7 @@ defmodule ExgradebookWeb.Staff.SessionController do
       |> redirect(to: staff_user_path(conn, :index))
     else
       conn
-      |> put_flash(:error, gettext("Incorrect email or password"))
+      |> put_flash(:danger, gettext("Incorrect email or password"))
       |> render(:new)
     end
   end

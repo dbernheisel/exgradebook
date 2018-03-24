@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <a class="navbar-brand" href="#">Gradebook</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <%= nav_link gettext("Course Directory"),
+        to: staff_user_path(@conn, :index)
+      %>
+      <%= nav_link gettext("Logout"),
+        to: session_path(@conn, :delete),
+        method: :delete
+      %>
+    </ul>
+  </div>
+</nav>
