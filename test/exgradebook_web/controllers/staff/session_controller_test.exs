@@ -37,7 +37,7 @@ defmodule ExgradebookWeb.Staff.SessionControllerTest do
 
       conn = post conn, staff_session_path(conn, :create), login: params
 
-      assert get_flash(conn, :error) == "Incorrect email or password"
+      assert get_flash(conn, :danger) == "Incorrect email or password"
       assert html_response(conn, 200) =~ "Sign In"
       refute Session.get_current_user(conn)
     end

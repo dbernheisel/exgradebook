@@ -6,7 +6,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
       admin = insert(:admin)
       conn = get conn, staff_user_path(conn, :index, as: admin.id)
 
-      assert html_response(conn, 200) =~ "Listing Staff"
+      assert html_response(conn, 200) =~ "Staff Directory"
     end
   end
 
@@ -29,7 +29,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
       assert redirected_to(conn) == staff_user_path(conn, :show, id)
 
       conn = get conn, staff_user_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Staff"
+      assert html_response(conn, 200) =~ "Show #{params.first_name}"
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -47,7 +47,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
       staff = insert(:teacher)
       conn = get conn, staff_user_path(conn, :edit, staff, as: admin.id)
 
-      assert html_response(conn, 200) =~ "Edit Staff"
+      assert html_response(conn, 200) =~ "Edit #{staff.first_name} #{staff.last_name}"
     end
   end
 
@@ -69,7 +69,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
       params = params_for(:teacher, role: "invalid") |> without_secrets
       conn = put conn, staff_user_path(conn, :update, staff, as: admin.id), staff: params
 
-      assert html_response(conn, 200) =~ "Edit Staff"
+      assert html_response(conn, 200) =~ "Edit #{staff.first_name} #{staff.last_name}"
     end
   end
 
