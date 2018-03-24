@@ -1,0 +1,22 @@
+<div class="container narrow-container page-content">
+  <%= form_for @conn, student_session_path(@conn, :create), [as: :login], fn form -> %>
+    <div class="box">
+      <%= input form, :email,
+        as: :email,
+        placeholder: gettext("Email"),
+        autofocus: "true",
+        label: [class: "control-label"],
+        class: "form-control"
+      %>
+      <%= input form, :password,
+        as: :password,
+        placeholder: gettext("Password"),
+        label: [class: "control-label"],
+        class: "form-control"
+      %>
+      <div class="stacked-form-actions">
+        <%= submit gettext("Sign In"), class: "block-button", data: [role: "session-sign-in"] %>
+      </div>
+    </div>
+  <% end %>
+</div>

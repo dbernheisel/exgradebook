@@ -19,9 +19,8 @@ defmodule ExgradebookWeb.Router do
     get "/staff/login", Staff.SessionController, :new, as: :staff_session
     post "/staff/login", Staff.SessionController, :create, as: :staff_session
     delete "/logout", SessionController, :delete
-    #get "/student/login", Student.SessionController, :new
-    #post "/student/login", Student.SessionController, :create
-    #delete "/student/logout", Student.SessionController, :delete
+    get "/student/login", Student.SessionController, :new, as: :student_session
+    post "/student/login", Student.SessionController, :create, as: :student_session
   end
 
   scope "/student", ExgradebookWeb.Student, as: :student do

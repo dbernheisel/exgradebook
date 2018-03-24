@@ -14,12 +14,18 @@ defmodule Mix.Tasks.DevelopmentSeeds do
       Ecto.Adapters.SQL.query!(Repo, "TRUNCATE TABLE #{table_name} CASCADE")
     end
 
-    admin = create_staff(email: "admin@example.com", first_name: "Test", last_name: "Admin")
+    admin = create_user(:admin, email: "admin@example.com", first_name: "Test", last_name: "Admin")
     UsefulOutput.add("Added staff #{admin.email}/password")
 
 
-    teacher = create_staff(email: "teacher@example.com", first_name: "Test", last_name: "Teacher")
+    teacher = create_user(:teacher, email: "teacher@example.com", first_name: "Test", last_name: "Teacher")
     UsefulOutput.add("Added staff #{teacher.email}/password")
+    insert_list(20, :teacher)
+
+    student = create_user(:student, email: "student@example.com", first_name: "Test", last_name: "Student")
+    UsefulOutput.add("Added student #{student.email}/password")
+
+    insert_list(100, :student)
 
     UsefulOutput.print()
   end
@@ -28,11 +34,12 @@ defmodule Mix.Tasks.DevelopmentSeeds do
   defp tables_to_truncate do
     ~w(
       staff
+      students
     )
   end
 
-  defp create_staff(params) do
-    :staff
+  defp create_user(type, params) do
+    type
     |> build(params)
     |> set_password("password")
     |> insert

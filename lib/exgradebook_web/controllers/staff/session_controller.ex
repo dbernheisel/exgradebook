@@ -12,12 +12,12 @@ defmodule ExgradebookWeb.Staff.SessionController do
     if user = Doorman.authenticate(Staff, email, pass) do
       conn
       |> Session.login(user)
-      |> put_flash(:notice, gettext("Successfully signed in"))
+      |> put_flash(:info, gettext("Successfully signed in"))
       |> redirect(to: staff_user_path(conn, :index))
     else
       conn
       |> put_flash(:error, gettext("Incorrect email or password"))
-      |> redirect(to: staff_session_path(conn, :new))
+      |> render(:new)
     end
   end
 end

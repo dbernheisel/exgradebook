@@ -2,6 +2,6 @@
   <h2><%= gettext "Welcome to %{name}!", name: "Gradebook" %></h2>
   <p class="lead">
     <%= link gettext("Staff Sign-in"), to: staff_session_path(@conn, :new) %><br>
-    <%= link gettext("Student Sign-in"), to: staff_session_path(@conn, :new) %>
+    <%= link gettext("Student Sign-in"), to: student_session_path(@conn, :new) %>
   </p>
 </div>
