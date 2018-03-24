@@ -1,6 +1,24 @@
 defmodule ExgradebookWeb.SessionController do
   use ExgradebookWeb, :controller
   alias ExgradebookWeb.Session
+  alias Exgradebook.Users.Staff
+  alias Exgradebook.Users.Student
+
+  def new(conn, _params) do
+    case Session.get_current_user(conn) do
+      %Staff{} = staff ->
+        conn
+        |> redirect(to: staff_user_path(conn, :index))
+
+      %Student{} = staff ->
+        conn
+        |> redirect(to: "/bla")
+
+      nil ->
+        conn
+        |> render(:new)
+    end
+  end
 
   def delete(conn, _params) do
     conn

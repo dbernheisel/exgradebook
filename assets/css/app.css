@@ -1,1 +1,8 @@
 /* This file is for your main application css. */
+body {
+  display: none;
+}
+
+.fontawesome-i2svg-active body {
+  display: initial;
+}

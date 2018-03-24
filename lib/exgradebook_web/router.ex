@@ -27,7 +27,7 @@ defmodule ExgradebookWeb.Router do
   scope "/", ExgradebookWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", SessionController, :new
     get "/staff/login", Staff.SessionController, :new, as: :staff_session
     post "/staff/login", Staff.SessionController, :create, as: :staff_session
     delete "/logout", SessionController, :delete
