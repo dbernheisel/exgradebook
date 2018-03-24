@@ -6,11 +6,11 @@ defmodule ExgradebookWeb.SessionController do
 
   def new(conn, _params) do
     case Session.get_current_user(conn) do
-      %Staff{} = staff ->
+      %Staff{} ->
         conn
         |> redirect(to: staff_user_path(conn, :index))
 
-      %Student{} = staff ->
+      %Student{} ->
         conn
         |> redirect(to: "/bla")
 
