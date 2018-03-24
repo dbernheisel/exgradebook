@@ -34,8 +34,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       admin = insert(:admin)
-      params =
-        params_for(:teacher, role: "invalid") |> for_registration
+      params = params_for(:teacher, role: "invalid") |> for_registration
       conn = post conn, staff_user_path(conn, :create, as: admin.id), staff: params
 
       assert html_response(conn, 200) =~ "New Staff"
