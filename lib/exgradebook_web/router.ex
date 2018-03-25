@@ -37,14 +37,14 @@ defmodule ExgradebookWeb.Router do
 
   scope "/student", ExgradebookWeb.Student, as: :student do
     pipe_through [:browser, :student]
-    #resources "/courses", StudentController
+    #resources "/courses", CourseController
   end
 
   scope "/staff", ExgradebookWeb.Staff, as: :staff do
     pipe_through [:browser, :staff]
     resources "/users", UserController
+    resources "/courses", CourseController
     #resources "/students", StudentController
-    #resources "/semesters", StudentController
-    #resources "/courses", StudentController
+    #resources "/semesters", SemesterController
   end
 end

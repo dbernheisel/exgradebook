@@ -1,4 +1,5 @@
-/* This file is for your main application css. */
+@import "clickable-table-row";
+
 body {
   display: none;
 }
@@ -6,3 +7,4 @@ body {
 .fontawesome-i2svg-active body {
   display: initial;
 }
+

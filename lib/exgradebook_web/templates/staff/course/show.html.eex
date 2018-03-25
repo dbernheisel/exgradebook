@@ -1,0 +1,28 @@
+<%= breadcrumbs([
+  link("Course Directory", to: staff_course_path(@conn, :index)),
+  content_tag(:li, @course.title, class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2><%= @course.title %></h2>
+</header>
+
+<ul>
+  <li>
+    <strong>Course Title:</strong>
+    <%= @course.title %>
+  </li>
+
+  <li>
+    <strong>Teacher:</strong>
+    <%= display_name(@course.teacher) %>
+  </li>
+
+  <li>
+    <strong>Semester:</strong>
+    <%= @course.semester.name %>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: staff_course_path(@conn, :edit, @course) %></span>
+<span><%= link "Back", to: staff_course_path(@conn, :index) %></span>

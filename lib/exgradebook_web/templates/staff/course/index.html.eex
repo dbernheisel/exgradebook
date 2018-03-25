@@ -1,0 +1,36 @@
+<%= breadcrumbs([
+  content_tag(:li, gettext("Course Directory"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <%= link gettext("New Course"), to: staff_course_path(@conn, :new), class: "float-right btn btn-primary" %>
+  <h2><%= gettext("Course Directory") %></h2>
+</header>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Teacher</th>
+      <th>Enrollments</th>
+      <th>Semester</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for course <- @courses do %>
+    <tr class="clickable" data-href="<%= staff_course_path(@conn, :show, course) %>">
+      <td><%= course.title %></td>
+      <td><%= display_name(course.teacher) %></td>
+      <td><%= course.enrollments_count %></td>
+      <td><%= course.semester.name %></td>
+
+      <td class="text-right">
+        <span><%= link "Edit", to: staff_course_path(@conn, :edit, course), class: "btn btn-secondary btn-xs" %></span>
+        <span><%= link "Delete", to: staff_course_path(@conn, :delete, course), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

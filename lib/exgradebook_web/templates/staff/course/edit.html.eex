@@ -1,0 +1,12 @@
+<%= breadcrumbs([
+  link("Course Directory", to: staff_course_path(@conn, :index)),
+  link(@course.title, to: staff_course_path(@conn, :show, @course)),
+  content_tag(:li, gettext("Edit"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2>Edit <%= @course.title %></h2>
+</header>
+
+<%= render "form.html", Map.put(assigns, :action, staff_course_path(@conn, :update, @course)) %>
+

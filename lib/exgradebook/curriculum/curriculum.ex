@@ -15,10 +15,32 @@ defmodule Exgradebook.Curriculum do
   end
 
   def list_courses do
-    Repo.all(Course)
+    Course
+    |> Repo.all
+    |> Repo.preload(course_preloads())
+  end
+
+  def get_course!(id) do
+    Course
+    |> Repo.get!(id)
+    |> Repo.preload(course_preloads())
+  end
+
+  def update_course(%Course{} = course, attrs) do
+    course
+    |> Course.changeset(attrs)
+    |> Repo.update()
   end
 
   def list_semesters do
     Repo.all(Semester)
+  end
+
+  defp course_preloads do
+    [:semester, :teacher]
+  end
+
+  def prepare_course(%Course{} = course, attrs \\ %{}) do
+    Course.changeset(course, attrs)
   end
 end

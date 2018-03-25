@@ -27,16 +27,16 @@ defmodule Mix.Tasks.DevelopmentSeeds do
 
     [semester_one, semester_two] =
       [Timex.today(), Timex.shift(Timex.today(), days: 92)]
-      |> Enum.map(fn day ->
-        case Timex.quarter(day) do
-          1 -> "Spring"
-          2 -> "Summer"
-          3 -> "Fall"
-          4 -> "Winter"
+      |> Enum.map(fn date ->
+        case Timex.quarter(date) do
+          1 -> {"Spring", date}
+          2 -> {"Summer", date}
+          3 -> {"Fall", date}
+          4 -> {"Winter", date}
         end
       end)
-      |> Enum.map(fn name ->
-        insert(:semester, name: name)
+      |> Enum.map(fn {name, date} ->
+        insert(:semester, name: "#{name} #{date.year}")
       end)
 
     Enum.each(teachers, fn teacher ->
@@ -50,6 +50,9 @@ defmodule Mix.Tasks.DevelopmentSeeds do
 
   defp tables_to_truncate do
     ~w(
+      courses
+      enrollments
+      semesters
       staff
       students
     )

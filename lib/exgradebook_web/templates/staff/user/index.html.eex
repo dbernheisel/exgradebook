@@ -7,7 +7,7 @@
   <h2><%= gettext("Staff Directory") %></h2>
 </header>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>First name</th>
@@ -20,14 +20,13 @@
   </thead>
   <tbody>
 <%= for staff <- @staff do %>
-    <tr>
+    <tr class="clickable" data-href="<%= staff_user_path(@conn, :show, staff) %>">
       <td><%= staff.first_name %></td>
       <td><%= staff.last_name %></td>
       <td><%= staff.email %></td>
       <td><%= staff.role %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: staff_user_path(@conn, :show, staff), class: "btn btn-secondary btn-xs" %></span>
         <span><%= link "Edit", to: staff_user_path(@conn, :edit, staff), class: "btn btn-secondary btn-xs" %></span>
         <span><%= link "Delete", to: staff_user_path(@conn, :delete, staff), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
