@@ -29,7 +29,7 @@ defmodule ExgradebookWeb.Staff.UserControllerTest do
       assert redirected_to(conn) == staff_user_path(conn, :show, id)
 
       conn = get conn, staff_user_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show #{params.first_name}"
+      assert html_response(conn, 200) =~ params.first_name
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

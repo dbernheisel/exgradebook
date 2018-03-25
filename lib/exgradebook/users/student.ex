@@ -14,7 +14,7 @@ defmodule Exgradebook.Users.Student do
     field :last_name, :string
     field :password, :string, virtual: true
     field :session_secret, :string
-    has_many :enrollments, Enrollment
+    has_many :enrollments, Enrollment, on_delete: :delete_all
     has_many :courses, through: [:enrollments, :course]
 
     timestamps()

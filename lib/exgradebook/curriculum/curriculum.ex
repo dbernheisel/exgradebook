@@ -36,6 +36,16 @@ defmodule Exgradebook.Curriculum do
     Repo.all(Semester)
   end
 
+  def delete_course(%Course{} = course) do
+    Repo.delete(course)
+  end
+
+  def create_course(attrs \\ %{}) do
+    %Course{}
+    |> Course.changeset(attrs)
+    |> Repo.insert()
+  end
+
   defp course_preloads do
     [:semester, :teacher]
   end

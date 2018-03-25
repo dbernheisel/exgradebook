@@ -1,5 +1,5 @@
 <%= breadcrumbs([
-  link("Course Directory", to: staff_user_path(@conn, :index)),
+  link("Course Directory", to: staff_course_path(@conn, :index)),
   content_tag(:li, gettext("New Course"), class: "active", "aria-current": "page")
 ]) %>
 

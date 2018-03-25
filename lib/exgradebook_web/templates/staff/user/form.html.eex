@@ -15,7 +15,9 @@
     <%= error_tag f, :role %>
   </div>
 
-  <%= input f, :password, as: :password, label: [class: "col-form-label"], class: "form-control" %>
+  <%= unless @changeset.data.id do %>
+    <%= input f, :password, as: :password, label: [class: "col-form-label"], class: "form-control" %>
+  <% end %>
 
   <div class="btn-group" role="group" aria-label="Basic example">
     <%= link to: redirect_back(@conn), class: "btn btn-dark" do %>

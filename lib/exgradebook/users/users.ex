@@ -13,11 +13,15 @@ defmodule Exgradebook.Users do
     Repo.all(Staff)
   end
 
+  def list_students(queryable \\ Student) do
+    Repo.all(queryable)
+  end
+
   def list_students_for_course(course_id) do
     Student
     |> join(:inner, [s], e in assoc(s, :enrollments))
     |> where([s, e], e.course_id == ^course_id)
-    |> Repo.all
+    |> list_students
   end
 
   def list_students_not_in_course(course_id) do
@@ -25,7 +29,7 @@ defmodule Exgradebook.Users do
     |> where([s], not s.id in fragment(
       "SELECT enrollments.student_id FROM enrollments WHERE enrollments.course_id = ?", type(^course_id, :binary_id)
     ))
-    |> Repo.all
+    |> list_students
   end
 
   def get_staff!(id), do: Repo.get!(Staff, id)
@@ -105,7 +109,20 @@ defmodule Exgradebook.Users do
   end
 
   def delete_student(%Student{} = student) do
-    Repo.delete(student)
+    student = student |> Repo.preload(:courses)
+    case Repo.delete(student) do
+      {:ok, deleted_student} ->
+        student
+        |> Map.get(:courses)
+        |> Enum.each(&decrement_enrollments_count/1)
+
+        {:ok, deleted_student}
+      error -> error
+    end
+  end
+
+  defp decrement_enrollments_count(course) do
+    Repo.update_all(course, inc: [enrollments_count: -1])
   end
 
   def prepare_staff(%Staff{} = staff, attrs \\ %{}) do

@@ -12,7 +12,10 @@ if [ ! -z "$CI" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.asdf/asdf.sh"
 fi
+PROJECT_ROOT=$(pwd)
+cd assets
 node_modules/.bin/brunch build
+cd "$PROJECT_ROOT"
 mix compile --force --warnings-as-errors
 
 if [ -z "$CI" ]; then

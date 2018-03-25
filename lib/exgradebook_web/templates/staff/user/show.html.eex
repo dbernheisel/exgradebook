@@ -3,31 +3,17 @@
   content_tag(:li, display_name(@staff), class: "active", "aria-current": "page")
 ]) %>
 
-<header>
-  <h2>Show <%= display_name(@staff) %></h2>
-</header>
-
-<ul>
-  <li>
-    <strong>First name:</strong>
-    <%= @staff.first_name %>
-  </li>
-
-  <li>
-    <strong>Last name:</strong>
-    <%= @staff.last_name %>
-  </li>
-
-  <li>
-    <strong>Email:</strong>
-    <%= @staff.email %>
-  </li>
-
-  <li>
-    <strong>Role:</strong>
-    <%= @staff.role %>
-  </li>
-</ul>
-
-<span><%= link "Edit", to: staff_user_path(@conn, :edit, @staff) %></span>
-<span><%= link "Back", to: staff_user_path(@conn, :index) %></span>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= display_name(@staff) %></h5>
+    <p class="card-text">
+      <dl class="row">
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9"><%= @staff.email %></dd>
+        <dt class="col-sm-3">Role</dt>
+        <dd class="col-sm-9"><%= @staff.role %></dd>
+      </dl>
+    </p>
+    <span><%= link "Edit", to: staff_user_path(@conn, :edit, @staff), class: "btn btn-primary" %></span>
+  </div>
+</div>

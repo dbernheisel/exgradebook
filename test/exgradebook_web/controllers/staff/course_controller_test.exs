@@ -15,21 +15,21 @@ defmodule ExgradebookWeb.Staff.CourseControllerTest do
       admin = insert(:admin)
       conn = get conn, staff_course_path(conn, :new, as: admin.id)
 
-      assert html_response(conn, 200) =~ "New Staff"
+      assert html_response(conn, 200) =~ "New Course"
     end
   end
 
   describe "create" do
     test "redirects to show when data is valid", %{conn: conn} do
       admin = insert(:admin)
-      params = params_with_assocs(:course)
+      params = params_with_assocs(:course) |> IO.inspect(label: "params")
       conn = post conn, staff_course_path(conn, :create, as: admin.id), course: params
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == staff_course_path(conn, :show, id)
 
       conn = get conn, staff_course_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show #{params.title}"
+      assert html_response(conn, 200) =~ params.title
     end
 
     test "renders errors when data is invalid", %{conn: conn} do

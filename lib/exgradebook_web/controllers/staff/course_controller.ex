@@ -19,7 +19,7 @@ defmodule ExgradebookWeb.Staff.CourseController do
   end
 
   def create(conn, %{"course" => course_params}) do
-    case Users.create_course(course_params) do
+    case Curriculum.create_course(course_params) do
       {:ok, course} ->
         conn
         |> put_flash(:info, "Course created successfully.")
