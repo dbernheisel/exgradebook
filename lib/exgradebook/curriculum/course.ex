@@ -4,6 +4,7 @@ defmodule Exgradebook.Curriculum.Course do
   alias Exgradebook.Users.Staff
   alias Exgradebook.Curriculum.Semester
   alias Exgradebook.Curriculum.Enrollment
+  alias Exgradebook.Curriculum.Assignment
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -12,6 +13,8 @@ defmodule Exgradebook.Curriculum.Course do
     field :enrollments_count, :integer, default: 0
     belongs_to :teacher, Staff
     belongs_to :semester, Semester
+    has_many :assignments, Assignment, on_delete: :delete_all
+    has_many :grades, through: [:assignments, :grade]
     has_many :enrollments, Enrollment, on_delete: :delete_all
     has_many :students, through: [:enrollments, :student]
 

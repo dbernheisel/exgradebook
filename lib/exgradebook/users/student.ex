@@ -4,6 +4,7 @@ defmodule Exgradebook.Users.Student do
   import Doorman.Auth.Bcrypt, only: [hash_password: 1]
   import Doorman.Auth.Secret, only: [put_session_secret: 1]
   alias Exgradebook.Curriculum.Enrollment
+  alias Exgradebook.Curriculum.Grade
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -16,6 +17,7 @@ defmodule Exgradebook.Users.Student do
     field :session_secret, :string
     has_many :enrollments, Enrollment, on_delete: :delete_all
     has_many :courses, through: [:enrollments, :course]
+    has_many :grades, Grade, on_delete: :delete_all
 
     timestamps()
   end

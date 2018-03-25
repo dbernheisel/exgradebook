@@ -10,5 +10,7 @@ defmodule Exgradebook.Repo.Migrations.CreateEnrollments do
       timestamps()
     end
     create unique_index(:enrollments, [:student_id, :course_id])
+    create index(:enrollments, [:student_id])
+    create index(:enrollments, [:course_id])
   end
 end

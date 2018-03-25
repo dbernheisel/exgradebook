@@ -12,5 +12,7 @@ defmodule Exgradebook.Repo.Migrations.CreateCourses do
       timestamps()
     end
     create unique_index(:courses, [:title])
+    create index(:courses, [:teacher_id])
+    create index(:courses, [:semester_id])
   end
 end
