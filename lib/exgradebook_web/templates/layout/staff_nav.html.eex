@@ -13,7 +13,7 @@
         to: staff_user_path(@conn, :index)
       %>
       <%= nav_link gettext("Student Directory"),
-        to: staff_user_path(@conn, :index)
+        to: staff_student_path(@conn, :index)
       %>
       <%= nav_link gettext("Course Directory"),
         to: staff_course_path(@conn, :index)

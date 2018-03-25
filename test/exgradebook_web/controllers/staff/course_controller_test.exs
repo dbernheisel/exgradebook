@@ -22,7 +22,7 @@ defmodule ExgradebookWeb.Staff.CourseControllerTest do
   describe "create" do
     test "redirects to show when data is valid", %{conn: conn} do
       admin = insert(:admin)
-      params = params_with_assocs(:course) |> IO.inspect(label: "params")
+      params = params_with_assocs(:course)
       conn = post conn, staff_course_path(conn, :create, as: admin.id), course: params
 
       assert %{id: id} = redirected_params(conn)

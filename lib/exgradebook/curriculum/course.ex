@@ -32,15 +32,4 @@ defmodule Exgradebook.Curriculum.Course do
     |> validate_required(@required_fields)
     |> unique_constraint(:title)
   end
-
-  def increment_course_enrollment_count(enrollment_changeset) do
-    prepare_changes(enrollment_changeset, fn (changeset) ->
-      changeset
-      |> apply_changes
-      |> Ecto.assoc(:course)
-      |> Exgradebook.Repo.update_all(inc: [enrollments_count: 1])
-
-      changeset
-    end)
-  end
 end

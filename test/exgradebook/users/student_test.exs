@@ -49,19 +49,6 @@ defmodule Exgradebook.Users.StudentTest do
     end
   end
 
-  describe "list_students_for_course" do
-    test "returns all students in course" do
-      course = insert(:course)
-      expected_student = insert(:student)
-      insert(:enrollment, student: expected_student, course: course)
-      _other_student = insert(:student)
-
-      [student] = Users.list_students_for_course(course.id)
-
-      assert student.id == expected_student.id
-    end
-  end
-
   describe "list_students_not_in_course" do
     test "returns all students not in course" do
       course = insert(:course)

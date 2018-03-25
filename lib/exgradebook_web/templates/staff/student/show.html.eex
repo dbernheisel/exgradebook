@@ -1,0 +1,17 @@
+<%= breadcrumbs([
+  link("Student Directory", to: staff_student_path(@conn, :index)),
+  content_tag(:li, display_name(@student), class: "active", "aria-current": "page")
+]) %>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= display_name(@student) %></h5>
+    <p class="card-text">
+      <dl class="row">
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9"><%= @student.email %></dd>
+      </dl>
+    </p>
+    <span><%= link "Edit", to: staff_student_path(@conn, :edit, @student), class: "btn btn-primary" %></span>
+  </div>
+</div>

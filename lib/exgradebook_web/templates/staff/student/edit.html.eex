@@ -1,0 +1,12 @@
+<%= breadcrumbs([
+  link("Student Directory", to: staff_student_path(@conn, :index)),
+  link(display_name(@student), to: staff_student_path(@conn, :show, @student)),
+  content_tag(:li, gettext("Edit"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2>Edit <%= display_name(@student) %></h2>
+</header>
+
+<%= render "form.html", Map.put(assigns, :action, staff_student_path(@conn, :update, @student)) %>
+

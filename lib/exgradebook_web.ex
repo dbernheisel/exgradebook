@@ -23,6 +23,7 @@ defmodule ExgradebookWeb do
       import Plug.Conn
       import ExgradebookWeb.Router.Helpers
       import ExgradebookWeb.Gettext
+      import ExgradebookWeb.HistoryHelpers
     end
   end
 

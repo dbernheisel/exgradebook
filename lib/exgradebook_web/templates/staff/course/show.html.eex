@@ -14,8 +14,37 @@
         <dd class="col-sm-9"><%= display_name(@course.teacher) %></dd>
         <dt class="col-sm-3">Semester</dt>
         <dd class="col-sm-9"><%= @course.semester.name %></dd>
+        <dt class="col-sm-3">Enrolled Student Count</dt>
+        <dd class="col-sm-9"><%= @course.enrollments_count %></dd>
       </dl>
     </p>
     <span><%= link "Edit", to: staff_course_path(@conn, :edit, @course), class: "btn btn-primary" %></span>
   </div>
 </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Grade</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for {enrollment, number} <- Enum.with_index(@enrollments) do %>
+    <tr>
+      <td><%= number + 1 %></td>
+      <td><%= display_name(enrollment.student) %></td>
+      <td><%= enrollment.student.email %></td>
+      <td></td>
+
+      <td class="text-right">
+        <span><%= link "Unenroll", to: staff_enrollment_path(@conn, :delete, enrollment), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

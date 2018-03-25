@@ -1,0 +1,34 @@
+<%= breadcrumbs([
+  content_tag(:li, gettext("Student Directory"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <%= link gettext("New Student"), to: staff_student_path(@conn, :new), class: "float-right btn btn-primary" %>
+  <h2><%= gettext("Student Directory") %></h2>
+</header>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for student <- @students do %>
+    <tr class="clickable" data-href="<%= staff_student_path(@conn, :show, student) %>">
+      <td><%= student.first_name %></td>
+      <td><%= student.last_name %></td>
+      <td><%= student.email %></td>
+
+      <td class="text-right">
+        <span><%= link "Edit", to: staff_student_path(@conn, :edit, student), class: "btn btn-secondary btn-xs" %></span>
+        <span><%= link "Delete", to: staff_student_path(@conn, :delete, student), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

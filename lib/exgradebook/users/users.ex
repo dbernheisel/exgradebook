@@ -1,6 +1,7 @@
 defmodule Exgradebook.Users do
   import Ecto.Query
   import Ecto.Changeset
+  alias Exgradebook.Curriculum
   alias Exgradebook.Repo
   alias Exgradebook.Users.Staff
   alias Exgradebook.Users.Student
@@ -15,13 +16,6 @@ defmodule Exgradebook.Users do
 
   def list_students(queryable \\ Student) do
     Repo.all(queryable)
-  end
-
-  def list_students_for_course(course_id) do
-    Student
-    |> join(:inner, [s], e in assoc(s, :enrollments))
-    |> where([s, e], e.course_id == ^course_id)
-    |> list_students
   end
 
   def list_students_not_in_course(course_id) do
@@ -114,15 +108,11 @@ defmodule Exgradebook.Users do
       {:ok, deleted_student} ->
         student
         |> Map.get(:courses)
-        |> Enum.each(&decrement_enrollments_count/1)
+        |> Enum.each(&Curriculum.increment_enrollments_count(&1, -1))
 
         {:ok, deleted_student}
       error -> error
     end
-  end
-
-  defp decrement_enrollments_count(course) do
-    Repo.update_all(course, inc: [enrollments_count: -1])
   end
 
   def prepare_staff(%Staff{} = staff, attrs \\ %{}) do

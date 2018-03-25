@@ -20,10 +20,10 @@ defmodule ExgradebookWeb.Staff.StudentController do
 
   def create(conn, %{"student" => student_params}) do
     case Users.create_student(student_params) do
-      {:ok, _student} ->
+      {:ok, student} ->
         conn
         |> put_flash(:info, "Student created successfully.")
-        #|> redirect(to: staff_student_path(conn, :show, student))
+        |> redirect(to: staff_student_path(conn, :show, student))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
@@ -51,10 +51,10 @@ defmodule ExgradebookWeb.Staff.StudentController do
     student = Users.get_student!(id)
 
     case Users.update_student(student, student_params) do
-      {:ok, _student} ->
+      {:ok, student} ->
         conn
         |> put_flash(:info, "Student updated successfully.")
-        #|> redirectCourseto: staff_student_path(conn, :show, student))
+        |> redirect(to: staff_student_path(conn, :show, student))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
         |> render_edit(student, changeset)
@@ -67,7 +67,7 @@ defmodule ExgradebookWeb.Staff.StudentController do
 
     conn
     |> put_flash(:info, "Student deleted successfully.")
-    #|> redirect(to: staff_student_path(conn, :index))
+    |> redirect(to: staff_student_path(conn, :index))
   end
 
   defp render_edit(conn, user, changeset) do

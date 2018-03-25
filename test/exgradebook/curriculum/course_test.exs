@@ -39,25 +39,6 @@ defmodule Exgradebook.Curriculum.CourseTest do
     end
   end
 
-  describe "increment_course_enrollment_count" do
-    test "adds a transaction to increase enrollment_count" do
-      course = insert(:course, enrollments_count: 0)
-      enrollment_params = params_with_assocs(:enrollment, course: course)
-
-      enrollment_changeset =
-        %Enrollment{}
-        |> Enrollment.changeset(enrollment_params)
-        |> Course.increment_course_enrollment_count
-      assert enrollment_changeset.prepare |> List.first
-
-      enrollment =
-        enrollment_changeset
-        |> Repo.insert!
-        |> Repo.preload(:course)
-      assert enrollment.course.enrollments_count == 1
-    end
-  end
-
   describe "list_courses" do
     test "returns all courses" do
       courses = insert_pair(:course)

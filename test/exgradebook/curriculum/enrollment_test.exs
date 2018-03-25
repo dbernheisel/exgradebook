@@ -4,29 +4,29 @@ defmodule Exgradebook.Curriculum.EnrollmentTest do
   alias Exgradebook.Curriculum.Enrollment
   alias Exgradebook.Curriculum.Course
 
-  describe "enroll_student_to_course" do
+  describe "enroll" do
     test "creates enrollment for student for course and increments count" do
-      student = insert(:student)
       course = insert(:course, enrollments_count: 0)
+      params = params_with_assocs(:enrollment, course: course)
 
-      {:ok, enrollment} = Curriculum.enroll_student_to_course(student, course)
+      {:ok, enrollment} = Curriculum.enroll(params)
 
       course = Repo.get!(Course, course.id)
       assert %Enrollment{} = enrollment
-      assert enrollment.student_id == student.id
-      assert enrollment.course_id == course.id
       assert course.enrollments_count == 1
     end
   end
 
-  describe "create_changeset" do
-    test "adds transaction to increment enrollment count for course" do
-      course = insert(:course)
-      params = params_with_assocs(:enrollment, course: course)
+  describe "unenroll" do
+    test "deletes enrollment for student for course and decrements count" do
+      course = insert(:course, enrollments_count: 1)
+      enrollment = insert(:enrollment, course: course)
 
-      changeset = Enrollment.create_changeset(%Enrollment{}, params)
+      {:ok, enrollment} = Curriculum.unenroll(enrollment.id)
 
-      assert changeset.prepare |> List.first
+      course = Repo.get!(Course, course.id)
+      assert_raise Ecto.NoResultsError, fn -> Curriculum.get_enrollment!(enrollment.id) end
+      assert course.enrollments_count == 0
     end
   end
 
@@ -52,6 +52,21 @@ defmodule Exgradebook.Curriculum.EnrollmentTest do
         |> Repo.insert
 
       assert {"already enrolled for course", _} = changeset.errors[:student]
+    end
+  end
+
+  describe "list_enrollments_for_course" do
+    test "returns all enrollments in course" do
+      course = insert(:course)
+      expected_enrollment = insert(
+        :enrollment,
+        course: course
+      )
+      _other_enrollment = insert(:enrollment)
+
+      [enrollment] = Curriculum.list_enrollments_for_course(course.id)
+
+      assert enrollment.id == expected_enrollment.id
     end
   end
 end

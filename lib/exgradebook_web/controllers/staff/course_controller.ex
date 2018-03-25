@@ -33,9 +33,11 @@ defmodule ExgradebookWeb.Staff.CourseController do
 
   def show(conn, %{"id" => id}) do
     course = Curriculum.get_course!(id)
+    enrollments = Curriculum.list_enrollments_for_course(course.id)
 
     conn
     |> assign(:course, course)
+    |> assign(:enrollments, enrollments)
     |> render(:show)
   end
 
