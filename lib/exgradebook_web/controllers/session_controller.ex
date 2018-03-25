@@ -12,7 +12,7 @@ defmodule ExgradebookWeb.SessionController do
 
       %Student{} ->
         conn
-        |> redirect(to: student_course_path(conn, :index))
+        |> redirect(to: student_dashboard_path(conn, :show))
 
       nil ->
         conn

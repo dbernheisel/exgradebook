@@ -40,6 +40,7 @@ defmodule ExgradebookWeb.Router do
   scope "/student", ExgradebookWeb.Student, as: :student do
     pipe_through [:browser, :student]
     resources "/courses", CourseController, only: [:index, :show]
+    resources "/dashboard", DashboardController, only: [:show], singleton: true
   end
 
   scope "/staff", ExgradebookWeb.Staff, as: :staff do

@@ -4,8 +4,7 @@ defmodule ExgradebookWeb.Student.CourseController do
   alias Exgradebook.Curriculum.Course
 
   def index(conn, _params) do
-    student = Session.get_current_user(conn)
-    courses = Curriculum.list_courses_for_user(student)
+    courses = Curriculum.list_courses()
 
     conn
     |> assign(:courses, courses)
@@ -13,7 +12,8 @@ defmodule ExgradebookWeb.Student.CourseController do
   end
 
   def show(conn, %{"id" => id}) do
-    course = Curriculum.get_course!(id)
+    student = Session.get_current_user(conn)
+    course = Curriculum.get_course!(id, user: student)
     #assignments = Curriculum.list_assignments_for_course(course.id)
 
     conn

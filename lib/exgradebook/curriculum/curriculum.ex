@@ -61,25 +61,37 @@ defmodule Exgradebook.Curriculum do
 
   def list_courses_for_user(%Student{} = student) do
     Course
-    |> join(:inner, [c], e in assoc(c, :enrollments))
-    |> where([c, e], e.student_id == ^student.id)
+    |> scope_courses_to_user(student)
     |> order_by([..., e], asc: e.inserted_at)
     |> Repo.all
     |> Repo.preload(course_preloads())
   end
   def list_courses_for_user(%Staff{} = staff) do
     Course
-    |> where([c], c.teacher_id == ^staff.id)
+    |> scope_courses_to_user(staff)
     |> order_by(:inserted_at)
     |> Repo.all
     |> Repo.preload(course_preloads())
   end
 
-  def get_course!(id) do
+  def get_course!(id, opts \\ []) do
     Course
-    |> Repo.get!(id)
+    |> scope_courses_to_user(Keyword.get(opts, :user))
+    |> where([c], c.id == ^id)
+    |> Repo.one!
     |> Repo.preload(course_preloads())
   end
+
+  defp scope_courses_to_user(query, %Student{id: student_id}) do
+    query
+    |> join(:inner, [c], e in assoc(c, :enrollments))
+    |> where([c, e], e.student_id == ^student_id)
+  end
+  defp scope_courses_to_user(query, %Staff{id: staff_id}) do
+    query
+    |> where([c], c.teacher_id == ^staff_id)
+  end
+  defp scope_courses_to_user(query, nil), do: query
 
   def update_course(%Course{} = course, attrs) do
     course

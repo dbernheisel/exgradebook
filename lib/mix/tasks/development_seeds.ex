@@ -46,6 +46,7 @@ defmodule Mix.Tasks.DevelopmentSeeds do
         course_with_students_for_teacher_and_semester(teacher, semester_two, Enum.random(5..20)),
       ]
     end)
+    |> Enum.take_random(10)
     |> Enum.each(& insert(:enrollment, student: student, course: &1))
 
     UsefulOutput.print()

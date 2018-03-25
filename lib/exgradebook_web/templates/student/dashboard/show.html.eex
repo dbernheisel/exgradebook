@@ -1,12 +1,10 @@
 <%= breadcrumbs([
-  content_tag(:li, gettext("Course Directory"), class: "active", "aria-current": "page")
+  content_tag(:li, gettext("Dashboard"), class: "active", "aria-current": "page")
 ]) %>
 
-<header>
-  <h2><%= gettext("Course Directory") %></h2>
-</header>
+<h2>Enrolled Courses</h2>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Title</th>
@@ -19,7 +17,7 @@
   </thead>
   <tbody>
 <%= for course <- @courses do %>
-    <tr>
+    <tr class="clickable" data-href="<%= student_course_path(@conn, :show, course) %>">
       <td><%= course.title %></td>
       <td><%= display_name(course.teacher) %></td>
       <td></td>

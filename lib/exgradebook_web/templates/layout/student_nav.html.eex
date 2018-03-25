@@ -9,6 +9,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
+      <%= nav_link gettext("Dashboard"),
+        to: student_dashboard_path(@conn, :show)
+      %>
       <%= nav_link gettext("Course Directory"),
         to: student_course_path(@conn, :index)
       %>
