@@ -3,7 +3,10 @@ defmodule ExgradebookWeb.Staff.EnrollmentController do
   alias Exgradebook.Curriculum
 
   def create(conn, %{"enrollment" => enrollment_params}) do
-    case Curriculum.enroll(enrollment_params) do
+    case Curriculum.enroll(%{
+      course_id: enrollment_params["course_id"],
+      student_id: enrollment_params["student_id"],
+    }) do
       {:ok, enrollment} ->
         conn
         |> put_flash(:info, "Student enrolled")
