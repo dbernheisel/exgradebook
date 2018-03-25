@@ -2,7 +2,6 @@ defmodule Exgradebook.Curriculum.CourseTest do
   use Exgradebook.DataCase, async: true
   alias Exgradebook.Curriculum
   alias Exgradebook.Curriculum.Course
-  alias Exgradebook.Curriculum.Enrollment
 
   describe "changeset" do
     test "requires fields" do
