@@ -20,12 +20,29 @@ defmodule Mix.Tasks.DevelopmentSeeds do
 
     teacher = create_user(:teacher, email: "teacher@example.com", first_name: "Test", last_name: "Teacher")
     UsefulOutput.add("Added staff #{teacher.email}/password")
-    insert_list(20, :teacher)
+    teachers = insert_list(20, :teacher)
 
     student = create_user(:student, email: "student@student.example.com", first_name: "Test", last_name: "Student")
     UsefulOutput.add("Added student #{student.email}/password")
 
-    insert_list(100, :student)
+    [semester_one, semester_two] =
+      [Timex.today(), Timex.shift(Timex.today(), days: 92)]
+      |> Enum.map(fn day ->
+        case Timex.quarter(day) do
+          1 -> "Spring"
+          2 -> "Summer"
+          3 -> "Fall"
+          4 -> "Winter"
+        end
+      end)
+      |> Enum.map(fn name ->
+        insert(:semester, name: name)
+      end)
+
+    Enum.each(teachers, fn teacher ->
+      course_with_students_for_teacher_and_semester(teacher, semester_one, Enum.random(5..20))
+      course_with_students_for_teacher_and_semester(teacher, semester_two, Enum.random(5..20))
+    end)
 
     UsefulOutput.print()
   end

@@ -21,8 +21,18 @@ defmodule Exgradebook.Curriculum.Enrollment do
   @doc false
   def create_changeset(struct, params) do
     struct
+    |> changeset(params)
+    |> Course.increment_course_enrollment_count()
+  end
+
+  def changeset(struct, params) do
+    struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
-    |> Course.increment_course_enrollment_count()
+    |> unique_constraint(
+      :student,
+      name: :enrollments_student_id_course_id_index,
+      message: "already enrolled for course"
+    )
   end
 end

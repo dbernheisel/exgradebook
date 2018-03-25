@@ -31,6 +31,44 @@ defmodule Exgradebook.Factory do
     build(:teacher, role: "administrator")
   end
 
+  def course_factory do
+    %Exgradebook.Curriculum.Course{
+      title: sequence(:course_title, &"Course Title #{&1}"),
+      enrollments_count: 0,
+      semester: build(:semester),
+      teacher: build(:teacher),
+    }
+  end
+
+  def enrollment_factory do
+    %Exgradebook.Curriculum.Enrollment{
+      student: build(:student),
+      course: build(:course),
+    }
+  end
+
+  def semester_factory do
+    %Exgradebook.Curriculum.Semester{
+      name: sequence(:semester_name, &"Semester Name #{&1}"),
+      started_on: Timex.today(),
+      ended_on: Timex.shift(Timex.today(), days: 180),
+    }
+  end
+
+  def course_with_students_for_teacher_and_semester(teacher, semester, number_of_students \\ 10) do
+    students = insert_list(number_of_students, :student)
+    course = insert(
+      :course,
+      enrollments_count: number_of_students,
+      semester: semester,
+      teacher: teacher
+    )
+    Enum.each(students, fn student ->
+      insert(:enrollment, student: student, course: course)
+    end)
+    course
+  end
+
   def for_registration(user) do
     user
     |> Map.delete(:hashed_password)

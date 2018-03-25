@@ -23,6 +23,7 @@ defmodule Exgradebook.DataCase do
       import Ecto.Query
       import Exgradebook.Factory
       import Exgradebook.DataCase
+      import Exgradebook.TestHelpers
     end
   end
 

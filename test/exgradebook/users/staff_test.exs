@@ -39,7 +39,7 @@ defmodule Exgradebook.Users.StaffTest do
         |> Staff.changeset(params)
         |> Repo.insert
 
-      assert changeset.errors[:email]
+      assert {"has already been taken", _} = changeset.errors[:email]
     end
   end
 

@@ -3,6 +3,7 @@ defmodule Exgradebook.Users.Staff do
   import Ecto.Changeset
   import Doorman.Auth.Bcrypt, only: [hash_password: 1]
   import Doorman.Auth.Secret, only: [put_session_secret: 1]
+  alias Exgradebook.Curriculum.Course
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -14,6 +15,8 @@ defmodule Exgradebook.Users.Staff do
     field :password, :string, virtual: true
     field :role, :string, default: "teacher"
     field :session_secret, :string
+    has_many :courses, Course, foreign_key: :teacher_id
+    has_many :students, through: [:courses, :enrollments, :student]
 
     timestamps()
   end

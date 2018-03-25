@@ -10,5 +10,6 @@ defmodule Exgradebook.Repo.Migrations.CreateSemesters do
 
       timestamps()
     end
+    create unique_index(:semesters, [:name])
   end
 end

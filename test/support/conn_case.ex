@@ -23,6 +23,7 @@ defmodule ExgradebookWeb.ConnCase do
       import Phoenix.View
       import ExgradebookWeb.Router.Helpers
       import Exgradebook.Factory
+      import Exgradebook.TestHelpers
 
       # The default endpoint for testing
       @endpoint ExgradebookWeb.Endpoint

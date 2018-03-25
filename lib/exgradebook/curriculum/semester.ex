@@ -23,5 +23,6 @@ defmodule Exgradebook.Curriculum.Semester do
     struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:name)
   end
 end

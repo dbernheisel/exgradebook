@@ -7,7 +7,12 @@ config :exgradebook, ExgradebookWeb.Endpoint,
   server: true
 
 # Print only warnings and errors during test
-config :logger, level: :warn
+
+if System.get_env("VERBOSE") == "true" do
+  config :logger, :console, format: "[$level] $message\n"
+else
+  config :logger, level: :warn
+end
 
 # Configure your database
 config :exgradebook, Exgradebook.Repo,
@@ -19,3 +24,6 @@ config :exgradebook, Exgradebook.Repo,
   ownership_timeout: 30000,
   pool_size: :erlang.system_info(:schedulers_online),
   pool_overflow: :erlang.system_info(:schedulers_online)
+
+config :wallaby,
+  tmp_dir_prefix: "wallaby-exgradebook"

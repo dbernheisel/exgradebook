@@ -19,9 +19,10 @@ defmodule Exgradebook.Curriculum.Course do
   end
 
   @required_fields ~w(
-    name
-    ended_on
-    started_on
+    title
+    teacher_id
+    semester_id
+    enrollments_count
   )a
 
   @doc false
@@ -29,11 +30,14 @@ defmodule Exgradebook.Curriculum.Course do
     struct
     |> cast(params, @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(:title)
   end
 
   def increment_course_enrollment_count(enrollment_changeset) do
     prepare_changes(enrollment_changeset, fn (changeset) ->
-      Ecto.assoc(changeset.data, :course)
+      changeset
+      |> apply_changes
+      |> Ecto.assoc(:course)
       |> Exgradebook.Repo.update_all(inc: [enrollments_count: 1])
 
       changeset

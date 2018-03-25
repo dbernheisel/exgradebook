@@ -26,7 +26,7 @@ defmodule Exgradebook.Users.StudentTest do
         |> Student.changeset(params)
         |> Repo.insert
 
-      assert changeset.errors[:email]
+      assert {"has already been taken", _} = changeset.errors[:email]
     end
   end
 
@@ -49,14 +49,29 @@ defmodule Exgradebook.Users.StudentTest do
     end
   end
 
-  describe "list_student" do
-    test "returns all student" do
-      Users.list_students()
-      student = insert(:student)
+  describe "list_students_for_course" do
+    test "returns all students in course" do
+      course = insert(:course)
+      expected_student = insert(:student)
+      insert(:enrollment, student: expected_student, course: course)
+      _other_student = insert(:student)
 
-      [result] = Users.list_students()
+      [student] = Users.list_students_for_course(course.id)
 
-      assert result.id == student.id
+      assert student.id == expected_student.id
+    end
+  end
+
+  describe "list_students_not_in_course" do
+    test "returns all students not in course" do
+      course = insert(:course)
+      enrolled_student = insert(:student)
+      insert(:enrollment, student: enrolled_student, course: course)
+      expected_student = insert(:student)
+
+      [student] = Users.list_students_not_in_course(course.id)
+
+      assert student.id == expected_student.id
     end
   end
 
