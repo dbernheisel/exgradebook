@@ -1,7 +1,6 @@
 defmodule ExgradebookWeb.Student.CourseController do
   use ExgradebookWeb, :controller
   alias Exgradebook.Curriculum
-  alias Exgradebook.Curriculum.Course
 
   def index(conn, _params) do
     courses = Curriculum.list_courses()
