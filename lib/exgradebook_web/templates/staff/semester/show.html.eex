@@ -1,0 +1,19 @@
+<%= breadcrumbs([
+  link("Semesters", to: staff_semester_path(@conn, :index)),
+  content_tag(:li, @semester.name, class: "active", "aria-current": "page")
+]) %>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= @semester.name %></h5>
+    <p class="card-text">
+      <dl class="row">
+        <dt class="col-sm-3">Started on</dt>
+        <dd class="col-sm-9"><%= @semester.started_on %></dd>
+        <dt class="col-sm-3">Ended on</dt>
+        <dd class="col-sm-9"><%= @semester.ended_on %></dd>
+      </dl>
+    </p>
+    <span><%= link "Edit", to: staff_semester_path(@conn, :edit, @semester), class: "btn btn-primary" %></span>
+  </div>
+</div>

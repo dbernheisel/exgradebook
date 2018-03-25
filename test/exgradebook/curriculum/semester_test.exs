@@ -42,4 +42,72 @@ defmodule Exgradebook.Curriculum.SemesterTest do
       assert fetched_semester_two.id in map_ids(semesters)
     end
   end
+
+  describe "list_semester" do
+    test "returns all semester" do
+      Curriculum.list_semesters()
+      semester = insert(:semester)
+
+      [result] = Curriculum.list_semesters()
+
+      assert result.id == semester.id
+    end
+  end
+
+  describe "get_semester!/1" do
+    test "returns the semester with given id" do
+      semester = insert(:semester)
+
+      assert Curriculum.get_semester!(semester.id) == semester
+    end
+  end
+
+  describe "create_semester/1" do
+    test "with valid data creates a semester" do
+      params = params_for(:semester)
+
+      assert {:ok, %Semester{}} = Curriculum.create_semester(params)
+      assert Repo.get_by(Semester, params)
+    end
+
+    test "with invalid data returns error changeset" do
+      params = params_for(:semester, name: nil)
+
+      assert {:error, %Ecto.Changeset{}} = Curriculum.create_semester(params)
+    end
+  end
+
+  describe "update_semester" do
+    test "with valid data updates the semester" do
+      semester = insert(:semester)
+      params = params_for(:semester)
+
+      assert {:ok, %Semester{}} = Curriculum.update_semester(semester, params)
+      assert Repo.get_by(Semester, Map.put(params, :id, semester.id))
+    end
+
+    test "with invalid data returns error changeset" do
+      semester = insert(:semester)
+      params = params_for(:semester, ended_on: "invalid")
+
+      assert {:error, %Ecto.Changeset{}} = Curriculum.update_semester(semester, params)
+    end
+  end
+
+  describe "delete_semester" do
+    test "deletes the semester" do
+      semester = insert(:semester)
+
+      assert {:ok, %Semester{}} = Curriculum.delete_semester(semester)
+      assert_raise Ecto.NoResultsError, fn -> Curriculum.get_semester!(semester.id) end
+    end
+  end
+
+  describe "prepare_semester" do
+    test "returns a semester changeset" do
+      semester = build(:semester)
+
+      assert %Ecto.Changeset{} = Curriculum.prepare_semester(semester)
+    end
+  end
 end

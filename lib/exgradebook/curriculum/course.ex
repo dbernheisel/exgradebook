@@ -12,7 +12,7 @@ defmodule Exgradebook.Curriculum.Course do
     field :enrollments_count, :integer, default: 0
     belongs_to :teacher, Staff
     belongs_to :semester, Semester
-    has_many :enrollments, Enrollment
+    has_many :enrollments, Enrollment, on_delete: :delete_all
     has_many :students, through: [:enrollments, :student]
 
     timestamps()

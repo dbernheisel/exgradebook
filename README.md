@@ -34,7 +34,7 @@ After setting up, you can run the application:
 
 ## Requirements
 
-[ ] A Teacher can manage his course roster
+[x] A Teacher can manage his course roster
 [ ] A Teacher can view the enrolled students and their grades for a given course
 [ ] A Student can see the courses he is registered for (with grades)
 [ ] A Student can see his GPA for a given semester

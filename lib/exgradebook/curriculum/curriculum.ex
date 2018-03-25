@@ -39,6 +39,10 @@ defmodule Exgradebook.Curriculum do
     Repo.get!(Enrollment, enrollment_id)
   end
 
+  def get_semester!(semester_id) do
+    Repo.get!(Semester, semester_id)
+  end
+
   def list_enrollments_for_course(course_id) do
     Enrollment
     |> join(:inner, [e], s in assoc(e, :student))
@@ -65,8 +69,18 @@ defmodule Exgradebook.Curriculum do
     |> Repo.update()
   end
 
+  def update_semester(%Semester{} = semester, attrs) do
+    semester
+    |> Semester.changeset(attrs)
+    |> Repo.update()
+  end
+
   def list_semesters do
     Repo.all(Semester)
+  end
+
+  def delete_semester(%Semester{} = semester) do
+    Repo.delete(semester)
   end
 
   def delete_course(%Course{} = course) do
@@ -79,12 +93,22 @@ defmodule Exgradebook.Curriculum do
     |> Repo.insert()
   end
 
+  def create_semester(attrs \\ %{}) do
+    %Semester{}
+    |> Semester.changeset(attrs)
+    |> Repo.insert()
+  end
+
   defp course_preloads do
     [:semester, :teacher]
   end
 
   def prepare_course(%Course{} = course, attrs \\ %{}) do
     Course.changeset(course, attrs)
+  end
+
+  def prepare_semester(%Semester{} = semester, attrs \\ %{}) do
+    Semester.changeset(semester, attrs)
   end
 
   def increment_enrollments_count(course_id, count \\ 1) do

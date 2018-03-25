@@ -18,6 +18,9 @@
       <%= nav_link gettext("Course Directory"),
         to: staff_course_path(@conn, :index)
       %>
+      <%= nav_link gettext("Semesters"),
+        to: staff_semester_path(@conn, :index)
+      %>
       <%= nav_link gettext("Logout"),
         to: session_path(@conn, :delete),
         method: :delete

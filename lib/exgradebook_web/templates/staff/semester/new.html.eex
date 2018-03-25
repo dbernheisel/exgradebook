@@ -1,0 +1,10 @@
+<%= breadcrumbs([
+  link("Semesters", to: staff_semester_path(@conn, :index)),
+  content_tag(:li, gettext("New Semester"), class: "active", "aria-current": "page")
+]) %>
+
+<header>
+  <h2>New Semester</h2>
+</header>
+
+<%= render "form.html", Map.put(assigns, :action, staff_semester_path(@conn, :create)) %>

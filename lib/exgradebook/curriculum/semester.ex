@@ -1,6 +1,7 @@
 defmodule Exgradebook.Curriculum.Semester do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Exgradebook.Curriculum.Course
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -8,6 +9,7 @@ defmodule Exgradebook.Curriculum.Semester do
     field :ended_on, :date
     field :name, :string
     field :started_on, :date
+    has_many :courses, Course, on_delete: :delete_all
 
     timestamps()
   end

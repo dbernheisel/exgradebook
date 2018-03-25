@@ -46,7 +46,6 @@ defmodule ExgradebookWeb.Router do
     resources "/courses", CourseController
     resources "/students", StudentController
     resources "/enrollments", EnrollmentController, only: [:create, :delete]
-
-    #resources "/semesters", SemesterController
+    resources "/semesters", SemesterController
   end
 end
