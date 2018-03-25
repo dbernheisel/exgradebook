@@ -3,10 +3,18 @@ defmodule ExgradebookWeb.Staff.CourseController do
   alias Exgradebook.Curriculum
   alias Exgradebook.Curriculum.Course
 
-  def index(conn, _params) do
+  def index(conn, %{"search" => search_params}) do
+    courses = Curriculum.search_courses(search_params)
+    render_index(conn, courses, search_params)
+  end
+  def index(conn, params) do
     courses = Curriculum.list_courses()
+    render_index(conn, courses)
+  end
 
+  defp render_index(conn, courses, search_params \\ %{}) do
     conn
+    |> assign(:search, search_params)
     |> assign(:courses, courses)
     |> render(:index)
   end

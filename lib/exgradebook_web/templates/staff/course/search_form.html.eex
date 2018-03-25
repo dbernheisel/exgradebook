@@ -1,0 +1,13 @@
+<%= form_for @conn, @path, [as: :search, method: :get], fn form -> %>
+  <div class="form-inline">
+    <div class="input-group mb-2 mr-sm-2">
+      <%= select form, :semester_id, semester_options(), prompt: "Search by semester", class: "form-control" %>
+    </div>
+    <div class="input-group mb-2 mr-sm-2">
+      <%= select form, :teacher_id, teacher_options(), prompt: "Search by teacher", class: "form-control" %>
+    </div>
+    <div class="input-group mb-2 mr-sm-2">
+      <%= submit gettext("Search"), class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

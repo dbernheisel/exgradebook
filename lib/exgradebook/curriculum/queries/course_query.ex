@@ -7,10 +7,27 @@ defmodule Exgradebook.Curriculum.Query.CourseQuery do
       alias Exgradebook.Users.Student
       alias Exgradebook.Users.Staff
 
+      def search_courses(queryable \\ Course, params) do
+        queryable
+        |> where_semester_id(params["semester_id"])
+        |> where_teacher_id(params["teacher_id"])
+        |> list_courses
+      end
       def list_courses(queryable \\ Course) do
         queryable
         |> Repo.all
         |> Repo.preload(course_preloads())
+      end
+
+      defp where_semester_id(queryable, ""), do: queryable
+      defp where_semester_id(queryable, semester_id) do
+        queryable
+        |> where([q], q.semester_id == ^semester_id)
+      end
+      defp where_teacher_id(queryable, ""), do: queryable
+      defp where_teacher_id(queryable, teacher_id) do
+        queryable
+        |> where([q], q.teacher_id == ^teacher_id)
       end
 
       def list_courses_for_user(%Student{} = student) do

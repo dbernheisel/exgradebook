@@ -7,6 +7,8 @@
   <h2><%= gettext("Course Directory") %></h2>
 </header>
 
+<%= render "search_form.html", path: staff_course_path(@conn, :index), conn: @conn %>
+
 <table class="table table-hover">
   <thead>
     <tr>
