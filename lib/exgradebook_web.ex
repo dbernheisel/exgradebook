@@ -24,6 +24,7 @@ defmodule ExgradebookWeb do
       import ExgradebookWeb.Router.Helpers
       import ExgradebookWeb.Gettext
       import ExgradebookWeb.HistoryHelpers
+      alias ExgradebookWeb.Session
     end
   end
 

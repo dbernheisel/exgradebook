@@ -13,7 +13,7 @@ defmodule ExgradebookWeb.Student.SessionController do
       conn
       |> Session.login(user)
       |> put_flash(:info, gettext("Successfully signed in"))
-      #|> redirect(to: student_course_path(conn, :index))
+      |> redirect(to: student_course_path(conn, :index))
     else
       conn
       |> put_flash(:danger, gettext("Incorrect email or password"))

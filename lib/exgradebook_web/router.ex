@@ -1,6 +1,7 @@
 defmodule ExgradebookWeb.Router do
   use ExgradebookWeb, :router
   alias ExgradebookWeb.Plug.RequireLogin
+  alias ExgradebookWeb.Plug.RequireStaff
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -16,6 +17,7 @@ defmodule ExgradebookWeb.Router do
 
   pipeline :staff do
     plug RequireLogin
+    plug RequireStaff
     plug :put_layout, {ExgradebookWeb.LayoutView, "staff.html"}
   end
 
@@ -37,7 +39,7 @@ defmodule ExgradebookWeb.Router do
 
   scope "/student", ExgradebookWeb.Student, as: :student do
     pipe_through [:browser, :student]
-    #resources "/courses", CourseController
+    resources "/courses", CourseController, only: [:index, :show]
   end
 
   scope "/staff", ExgradebookWeb.Staff, as: :staff do

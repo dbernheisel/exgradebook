@@ -4,6 +4,8 @@ defmodule Exgradebook.Curriculum do
   alias Exgradebook.Curriculum.Enrollment
   alias Exgradebook.Curriculum.Course
   alias Exgradebook.Curriculum.Semester
+  alias Exgradebook.Users.Student
+  alias Exgradebook.Users.Staff
 
   def enroll(%{student_id: student_id, course_id: course_id}) do
     %Enrollment{}
@@ -53,6 +55,22 @@ defmodule Exgradebook.Curriculum do
 
   def list_courses do
     Course
+    |> Repo.all
+    |> Repo.preload(course_preloads())
+  end
+
+  def list_courses_for_user(%Student{} = student) do
+    Course
+    |> join(:inner, [c], e in assoc(c, :enrollments))
+    |> where([c, e], e.student_id == ^student.id)
+    |> order_by([..., e], asc: e.inserted_at)
+    |> Repo.all
+    |> Repo.preload(course_preloads())
+  end
+  def list_courses_for_user(%Staff{} = staff) do
+    Course
+    |> where([c], c.teacher_id == ^staff.id)
+    |> order_by(:inserted_at)
     |> Repo.all
     |> Repo.preload(course_preloads())
   end

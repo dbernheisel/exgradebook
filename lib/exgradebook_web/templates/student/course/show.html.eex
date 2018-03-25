@@ -1,0 +1,47 @@
+<%= breadcrumbs([
+  link("Course Directory", to: student_course_path(@conn, :index)),
+  content_tag(:li, @course.title, class: "active", "aria-current": "page")
+]) %>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= @course.title %></h5>
+    <p class="card-text">
+      <dl class="row">
+        <dt class="col-sm-3">Title</dt>
+        <dd class="col-sm-9"><%= @course.title %></dd>
+        <dt class="col-sm-3">Teacher</dt>
+        <dd class="col-sm-9"><%= display_name(@course.teacher) %></dd>
+        <dt class="col-sm-3">Semester</dt>
+        <dd class="col-sm-9"><%= @course.semester.name %></dd>
+        <dt class="col-sm-3">Grade</dt>
+        <dd class="col-sm-9"></dd>
+      </dl>
+    </p>
+  </div>
+</div>
+
+
+<h2>Assignments</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Grade</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= 1 %></td>
+      <td></td>
+      <td></td>
+
+      <td class="text-right">
+      </td>
+    </tr>
+  </tbody>
+</table>
