@@ -9,6 +9,7 @@ defmodule ExgradebookWeb.Plug.RequireStaff do
     case Session.get_current_user(conn) do
       %Staff{} ->
         conn
+
       _ ->
         conn
         |> Phoenix.Controller.redirect(to: "/")

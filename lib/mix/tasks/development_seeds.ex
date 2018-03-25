@@ -42,8 +42,9 @@ defmodule Mix.Tasks.DevelopmentSeeds do
     teachers
     |> Enum.flat_map(fn teacher ->
       [
-        course_with_students_for_teacher_and_semester(teacher, semester_one, Enum.random(5..20)),
-        course_with_students_for_teacher_and_semester(teacher, semester_two, Enum.random(5..20)),
+        course_with_content(teacher, semester_one, Enum.random(5..20)),
+        course_with_content(teacher, semester_two, Enum.random(5..20)),
+        course_with_content(teacher, semester_two, Enum.random(5..20)),
       ]
     end)
     |> Enum.take_random(10)
@@ -52,11 +53,18 @@ defmodule Mix.Tasks.DevelopmentSeeds do
     UsefulOutput.print()
   end
 
+  defp course_with_content(teacher, semester, number_of_students \\ 10) do
+    teacher
+    |> course_with_students_for_teacher_and_semester(semester, number_of_students)
+    |> add_assignments_and_grades_for_course
+  end
 
   defp tables_to_truncate do
     ~w(
+      assignments
       courses
       enrollments
+      grades
       semesters
       staff
       students

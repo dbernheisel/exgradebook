@@ -25,5 +25,10 @@ defmodule Exgradebook.Curriculum.Grade do
     grade
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> unique_constraint(
+      :student,
+      name: :grades_student_id_assignment_id_index,
+      message: "already has a grade for this assignment"
+    )
   end
 end

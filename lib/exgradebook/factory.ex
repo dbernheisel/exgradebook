@@ -55,6 +55,22 @@ defmodule Exgradebook.Factory do
     }
   end
 
+  def assignment_factory do
+    %Exgradebook.Curriculum.Assignment{
+      name: sequence(:assignment_name, &"Assignment Name #{&1}"),
+      value: Enum.random(0..100),
+      course: build(:course),
+    }
+  end
+
+  def grade_factory do
+    %Exgradebook.Curriculum.Grade{
+      value: Enum.random(0..100),
+      assignment: build(:assignment),
+      student: build(:student),
+    }
+  end
+
   def course_with_students_for_teacher_and_semester(teacher, semester, number_of_students \\ 10) do
     students = insert_list(number_of_students, :student)
     course = insert(
@@ -67,6 +83,29 @@ defmodule Exgradebook.Factory do
       insert(:enrollment, student: student, course: course)
     end)
     course
+  end
+
+  def add_assignments_and_grades_for_course(course) do
+    course = course |> Repo.preload(:students)
+    assignments =
+      insert_list(10, :assignment, value: Enum.random(0..100), course: course)
+      |> Enum.map(& add_grades_to_assignment(&1, course.students))
+
+    %{course | assignments: assignments}
+  end
+
+  def add_grades_to_assignment(assignment, students, grades \\ [])
+  def add_grades_to_assignment(assignment, [], grades) do
+    %{assignment | grades: grades}
+  end
+  def add_grades_to_assignment(assignment, [student | rest_of_students], grades) do
+    grade = insert(
+      :grade,
+      value: Enum.random(0..round(assignment.value)),
+      assignment: assignment,
+      student: student
+    )
+    add_grades_to_assignment(assignment, rest_of_students, [grade | grades])
   end
 
   def for_registration(user) do

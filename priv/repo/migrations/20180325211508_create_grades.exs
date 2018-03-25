@@ -13,5 +13,6 @@ defmodule Exgradebook.Repo.Migrations.CreateGrades do
 
     create index(:grades, [:assignment_id])
     create index(:grades, [:student_id])
+    create unique_index(:grades, [:student_id, :assignment_id])
   end
 end
