@@ -15,6 +15,7 @@
       <th>Title</th>
       <th>Teacher</th>
       <th>Enrollments</th>
+      <th>Average Grade</th>
       <th>Semester</th>
 
       <th></th>
@@ -26,6 +27,7 @@
       <td><%= course.title %></td>
       <td><%= display_name(course.teacher) %></td>
       <td><%= course.enrollments_count %></td>
+      <td><%= grade_percentage_for_course(course.id) %></td>
       <td><%= course.semester.name %></td>
 
       <td class="text-right">

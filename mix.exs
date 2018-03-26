@@ -47,6 +47,7 @@ defmodule Exgradebook.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:quick_alias, "~> 0.1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:number, "~> 0.5.5"},
       {:timex, "~> 3.0"},
       {:wallaby, "~> 0.16", only: :test},
     ]

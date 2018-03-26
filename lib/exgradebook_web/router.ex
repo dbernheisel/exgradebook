@@ -46,7 +46,9 @@ defmodule ExgradebookWeb.Router do
   scope "/staff", ExgradebookWeb.Staff, as: :staff do
     pipe_through [:browser, :staff]
     resources "/users", UserController
-    resources "/courses", CourseController
+    resources "/courses", CourseController do
+      resources "/students", Course.StudentController, only: [:show]
+    end
     resources "/students", StudentController
     resources "/enrollments", EnrollmentController, only: [:create, :delete]
     resources "/semesters", SemesterController

@@ -53,7 +53,7 @@ defmodule Mix.Tasks.DevelopmentSeeds do
     UsefulOutput.print()
   end
 
-  defp course_with_content(teacher, semester, number_of_students \\ 10) do
+  defp course_with_content(teacher, semester, number_of_students) do
     teacher
     |> course_with_students_for_teacher_and_semester(semester, number_of_students)
     |> add_assignments_and_grades_for_course

@@ -7,7 +7,7 @@ defmodule ExgradebookWeb.Staff.CourseController do
     courses = Curriculum.search_courses(search_params)
     render_index(conn, courses, search_params)
   end
-  def index(conn, params) do
+  def index(conn, _params) do
     courses = Curriculum.list_courses()
     render_index(conn, courses)
   end

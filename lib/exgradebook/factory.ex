@@ -88,7 +88,7 @@ defmodule Exgradebook.Factory do
   def add_assignments_and_grades_for_course(course) do
     course = course |> Repo.preload(:students)
     assignments =
-      insert_list(10, :assignment, value: Enum.random(0..100), course: course)
+      insert_list(10, :assignment, course: course)
       |> Enum.map(& add_grades_to_assignment(&1, course.students))
 
     %{course | assignments: assignments}

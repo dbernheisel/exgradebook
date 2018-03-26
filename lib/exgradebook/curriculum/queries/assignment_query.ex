@@ -21,6 +21,13 @@ defmodule Exgradebook.Curriculum.Query.AssignmentQuery do
         |> list_assignments
       end
 
+      def points_possible_for_course(course_id) do
+        Assignment
+        |> where([a], a.course_id == ^course_id)
+        |> select([a], a.value)
+        |> Repo.aggregate(:sum, :value)
+      end
+
       defp scope_grades_to_user(query, %Student{id: student_id}) do
         query
         |> join(:inner, [a], g in assoc(a, :grades))

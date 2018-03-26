@@ -26,7 +26,7 @@
 
 <h2>Enrolled Students</h2>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -39,11 +39,11 @@
   </thead>
   <tbody>
     <%= for {enrollment, number} <- Enum.with_index(@enrollments) do %>
-    <tr>
+    <tr class="clickable" data-href="<%= staff_course_student_path(@conn, :show, @course, enrollment.student_id) %>">
       <td><%= number + 1 %></td>
       <td><%= display_name(enrollment.student) %></td>
       <td><%= enrollment.student.email %></td>
-      <td></td>
+      <td><%= grade_percentage_for_student_in_course(enrollment.student, enrollment.course_id) %></td>
 
       <td class="text-right">
         <span><%= link "Unenroll", to: staff_enrollment_path(@conn, :delete, enrollment), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
