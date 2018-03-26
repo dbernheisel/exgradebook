@@ -29,3 +29,27 @@
 <% end %>
   </tbody>
 </table>
+
+<h2>GPA</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Semester</th>
+      <th>Grade</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for semester <- @semesters do %>
+    <tr>
+      <td><%= semester.name %></td>
+      <td><%= display_gpa_for_semester(@current_user, semester) %></td>
+
+      <td class="text-right">
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

@@ -29,6 +29,13 @@ defmodule ExgradebookWeb.CourseView do
     |> Map.get(:letter)
   end
 
+  def display_grade(percentage) when is_float(percentage) do
+    percentage = percentage * 100
+    [
+      Number.Percentage.number_to_percentage(percentage, precision: 1),
+      letter_grade(percentage)
+    ] |> Enum.join(" ")
+  end
   def display_grade(course_id) do
     percentage = grade_percentage_for_course(course_id)
     [

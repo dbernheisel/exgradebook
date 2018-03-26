@@ -8,6 +8,7 @@ defmodule ExgradebookWeb.Student.DashboardController do
 
     conn
     |> assign(:enrollments, enrollments)
+    |> assign(:semesters, Curriculum.list_semesters())
     |> render(:show)
   end
 end
