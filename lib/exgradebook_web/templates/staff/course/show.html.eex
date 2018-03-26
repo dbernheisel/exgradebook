@@ -16,6 +16,8 @@
         <dd class="col-sm-9"><%= @course.semester.name %></dd>
         <dt class="col-sm-3">Enrolled Student Count</dt>
         <dd class="col-sm-9"><%= @course.enrollments_count %></dd>
+        <dt class="col-sm-3">Average Grade</dt>
+        <dd class="col-sm-9"><%= display_grade(@course.id) %></dd>
       </dl>
     </p>
     <span><%= link "Edit", to: staff_course_path(@conn, :edit, @course), class: "btn btn-primary" %></span>
@@ -43,7 +45,7 @@
       <td><%= number + 1 %></td>
       <td><%= display_name(enrollment.student) %></td>
       <td><%= enrollment.student.email %></td>
-      <td><%= grade_percentage_for_student_in_course(enrollment.student, enrollment.course_id) %></td>
+      <td><%= display_grade(enrollment.course_id, enrollment.student) %></td>
 
       <td class="text-right">
         <span><%= link "Unenroll", to: staff_enrollment_path(@conn, :delete, enrollment), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>

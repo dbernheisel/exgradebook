@@ -15,7 +15,7 @@
         <dt class="col-sm-3">Semester</dt>
         <dd class="col-sm-9"><%= @course.semester.name %></dd>
         <dt class="col-sm-3">Grade</dt>
-        <dd class="col-sm-9"></dd>
+        <dd class="col-sm-9"><%= display_grade(@course.id, @current_user) %></dd>
       </dl>
     </p>
   </div>
@@ -29,17 +29,20 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
-      <th scope="col">Grade</th>
+      <th scope="col">Total Points</th>
+      <th scope="col">Points Earned</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
     <%= for {assignment, number} <- @assignments |> Enum.with_index do %>
+    <% grade = grade_for_student(assignment.grades, @current_user) %>
     <tr>
       <td><%= number + 1 %></td>
       <td><%= assignment.name %></td>
-      <td></td>
+      <td><%= assignment.value %></td>
+      <td><%= grade.value %></td>
 
       <td class="text-right">
       </td>

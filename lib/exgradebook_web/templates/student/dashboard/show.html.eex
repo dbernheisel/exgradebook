@@ -20,7 +20,7 @@
     <tr class="clickable" data-href="<%= student_course_path(@conn, :show, enrollment.course) %>">
       <td><%= enrollment.course.title %></td>
       <td><%= display_name(enrollment.course.teacher) %></td>
-      <td><%= grade_percentage_for_student_in_course(@current_user, enrollment.course_id) %></td>
+      <td><%= display_grade(enrollment.course_id, @current_user) %></td>
       <td><%= enrollment.course.semester.name %></td>
 
       <td class="text-right">

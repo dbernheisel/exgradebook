@@ -101,7 +101,7 @@ defmodule Exgradebook.Factory do
   def add_grades_to_assignment(assignment, [student | rest_of_students], grades) do
     grade = insert(
       :grade,
-      value: Enum.random(0..round(assignment.value)),
+      value: round(assignment.value) * Enum.random(50..100) / 100,
       assignment: assignment,
       student: student
     )

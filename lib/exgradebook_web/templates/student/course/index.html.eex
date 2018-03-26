@@ -11,7 +11,6 @@
     <tr>
       <th>Title</th>
       <th>Teacher</th>
-      <th>Grade</th>
       <th>Semester</th>
 
       <th></th>
@@ -22,7 +21,6 @@
     <tr>
       <td><%= course.title %></td>
       <td><%= display_name(course.teacher) %></td>
-      <td></td>
       <td><%= course.semester.name %></td>
 
       <td class="text-right">

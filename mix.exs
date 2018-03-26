@@ -34,20 +34,21 @@ defmodule Exgradebook.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:decimal, "~> 1.0"},
       {:doorman, github: "blakewilliams/doorman", branch: "master"},
       {:envy, "~> 1.1"},
       {:ex_machina, "~> 2.0"},
       {:formulator, "~> 0.1", github: "thoughtbot/formulator"},
       {:gettext, "~> 0.11"},
       {:navigation_history, "~> 0.0"},
+      {:number, "~> 0.5.5"},
       {:phoenix, "~> 1.3"},
       {:phoenix_ecto, "~> 3.2"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
-      {:quick_alias, "~> 0.1.0"},
       {:postgrex, ">= 0.0.0"},
-      {:number, "~> 0.5.5"},
+      {:quick_alias, "~> 0.1.0"},
       {:timex, "~> 3.0"},
       {:wallaby, "~> 0.16", only: :test},
     ]
