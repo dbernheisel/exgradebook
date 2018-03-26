@@ -26,5 +26,9 @@
         method: :delete
       %>
     </ul>
+    <%= link to: "https://github.com/dbernheisel/exgradebook", class: "navbar-text", target: "_blank" do %>
+      <i class="fab fa-github"></i>
+      Source
+    <% end %>
   </div>
 </nav>
