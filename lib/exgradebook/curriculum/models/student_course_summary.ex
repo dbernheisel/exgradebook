@@ -5,10 +5,11 @@ defmodule Exgradebook.Curriculum.StudentCourseSummary do
   alias Exgradebook.Users.Student
 
   @primary_key false
+  @foreign_key_type :binary_id
   schema "student_course_summaries" do
-    belongs_to :student, Student, type: :binary_id
-    belongs_to :course, Course, type: :binary_id
-    belongs_to :semester, Semester, type: :binary_id
+    belongs_to :student, Student
+    belongs_to :course, Course
+    belongs_to :semester, Semester
     field :grade_sum, :float
     field :assignment_sum, :float
     field :grade_percentage, :float

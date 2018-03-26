@@ -21,6 +21,25 @@ After setting up, you can run the application:
 [asdf-nodejs]: https://github.com/asdf-vm/asdf-nodejs
 [postgres]: http://postgresapp.com/
 
+## Testing
+
+    % ./bin/test_suite
+    # or
+    % mix test
+
+The `bin/test_suite` script will also enforce no compiler warnings, so
+that is better to use.
+
+## Deployment
+
+It's [deployed at heroku at https://exgradebook-production.herokuapp.com][url]
+
+Once added to the heroku app, you can also deploy:
+
+    % ./bin/deploy production
+
+[url]: https://exgradebook-production.herokuapp.com/
+
 ## Requirements
 
 [x] A Teacher can manage his course roster
@@ -29,3 +48,39 @@ After setting up, you can run the application:
 [x] A Student can see his GPA for a given semester
 [x] An Administrator can view enrollment counts across all courses for a semester (performance is a concern)
 [x] An Administrator can view an average grade for a given course (performance is a concern)
+
+## ERD
+
+![Entity Relationship Diagram](docs/erd.png)
+
+## Things that could be improved
+
+- Pagination. I didn't use it anywhere
+- Tests. I stopped writing them when I was implementing the last couple
+    of schemas and controllers. There are still lots of tests though.
+- No e2e tests.
+- No typespecs
+- No doctests
+- No comments
+- I tried an idea with grouping queries and then importing them into the
+    context file. I don't like this idea anymore because it requires
+    them to be `quote`'d into the context, and also hides where the app
+    crashes are occurring, and also not as friendly error messages. I'd
+    do it differently next time.
+- Assignments and Grades can only be seeded. There's no way to manage
+    them in the UI.
+- I made some decisions knowing this won't be used in the real world.
+- Some of the grade calculation could be offloaded to the database; but
+    after wrastlin' with the [StudentCourseSummary] database view I didn't
+    think it was worth improving it _everywhere_. The database view
+    handles the worst of the calculations.
+- Probably app styling.
+- The seeded data is pretty boring. It doesn't even use Faker.
+- There's almost no JavaScript (some would say that's a good thing)
+- There's barely any custom styling (Thanks Bootstrap4)
+- I didn't even try to look at it on my phone, so I'm sure it's not
+    mobile-optimized.
+- I never used a `LEFT JOIN LATERAL` before. That was cool, but I
+    might have gotten it wrong.
+
+[StudentCourseSummary]: priv/repo/migrations/20180326020858_create_student_course_view.exs

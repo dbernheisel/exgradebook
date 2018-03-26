@@ -40,3 +40,8 @@ npm install --progress=false
 echo "Compiling assets"
 node_modules/brunch/bin/brunch build
 cd "$PROJECT_ROOT"
+
+if command -v heroku >/dev/null; then
+  heroku join --app exgradebook-production || true
+  heroku git:remote -r production -a exgradebook-production || true
+fi

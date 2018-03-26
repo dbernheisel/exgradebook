@@ -1,21 +1,10 @@
 #!/bin/sh
 set -e
 
-if [ ! -z "$CI" ]; then
-  # shellcheck source=/dev/null
-  . "$HOME/.asdf/asdf.sh"
-fi
 PROJECT_ROOT=$(pwd)
 cd assets
 node_modules/.bin/brunch build
 cd "$PROJECT_ROOT"
 mix compile --force --warnings-as-errors
 
-if [ -z "$CI" ]; then
-  mix test
-  kill_phantoms
-else
-  mix development_seeds > /dev/null
-  MIX_ENV="test" mix ecto.reset
-  mix test
-fi
+mix test
