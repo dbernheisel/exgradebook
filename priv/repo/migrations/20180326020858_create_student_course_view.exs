@@ -7,8 +7,8 @@ defmodule Exgradebook.Repo.Migrations.CreateStudentCourseView do
       SELECT
         course_id,
         student_id,
-        assignment_sum,
         semester_id,
+        assignment_sum,
         grade_sum,
         grade_sum / assignment_sum AS grade_percentage
       FROM (

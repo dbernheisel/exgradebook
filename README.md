@@ -1,16 +1,5 @@
 # Exgradebook
 
-To start your Phoenix server:
-
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
 ## Getting Started
 
 After you have cloned this repo, run this setup script to set up your machine
@@ -18,8 +7,9 @@ with the necessary dependencies to run and test this app:
 
     % ./bin/setup
 
-It assumes you have a machine equipped with [asdf], [asdf-elixir],
-[asdf-erlang], [asdf-nodejs], [PhantomJS], [postgres], etc.
+It assumes you have a machine equipped with Elixir and [postgres]. If
+you have [asdf], then it will try to install the correct versions with
+[asdf-elixir], [asdf-erlang], and [asdf-nodejs].
 
 After setting up, you can run the application:
 
@@ -29,7 +19,6 @@ After setting up, you can run the application:
 [asdf-elixir]: https://github.com/asdf-vm/asdf-elixir
 [asdf-erlang]: https://github.com/asdf-vm/asdf-erlang
 [asdf-nodejs]: https://github.com/asdf-vm/asdf-nodejs
-[PhantomJS]: http://phantomjs.org/
 [postgres]: http://postgresapp.com/
 
 ## Requirements

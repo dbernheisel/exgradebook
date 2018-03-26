@@ -50,7 +50,6 @@ defmodule Exgradebook.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:quick_alias, "~> 0.1.0"},
       {:timex, "~> 3.0"},
-      {:wallaby, "~> 0.16", only: :test},
     ]
   end
 

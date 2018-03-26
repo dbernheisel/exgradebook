@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+if test -z "${1}"; then
+  app_name="${HEROKU_APP_NAME}"
+else
+  app_name="exgradebook-${1}"
+fi
+
+heroku run "POOL_SIZE=2 mix ecto.migrate" --exit-code --app "$app_name"
+echo "Seeding database (this may take up to 2 minutes)"
+heroku run "POOL_SIZE=2 mix development_seeds" --exit-code --app "$app_name"

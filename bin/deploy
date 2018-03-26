@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Run this script to deploy the app to Heroku.
+
+set -e
+
+app_name="-${1}"
+target="${1:-staging}"
+branch="$(git symbolic-ref HEAD --short)"
+
+if [ "$target" = "production" ] && [ "$branch" != "master" ]; then
+  echo "You are not on the master branch and trying to deploy to production"
+  echo "If you really want to deploy to production with a different branch"
+  echo "you will need to do it manually"
+  exit 1
+fi
+
+git push "$target" "$branch:master"
+
+heroku maintenance:on --app "$app_name"
+
+bin/post_deploy "$target"
+
+heroku restart --app "$app_name"
+heroku maintenance:off --app "$app_name"

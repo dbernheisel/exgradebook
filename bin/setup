@@ -3,34 +3,9 @@
 # Exit if any subcommand fails
 set -e
 
-if ! command -v phantomjs >/dev/null; then
-  echo "You must install PhantomJS 2.x before continuing."
-  echo "You can install with 'brew install phantomjs'"
-  exit 1
-else
-  phantomjs_version=$(phantomjs -v)
-  major_version="${phantomjs_version%.*.*}"
-
-  if [ "$major_version" -lt 2 ]; then
-    echo "Please update your PhantomJS to 2.x before continuing."
-    exit 1
-  fi
-fi
-
-if ! command -v asdf >/dev/null; then
-  echo "You must install asdf before continuing."
-  echo "See https://github.com/asdf-vm/asdf"
-  exit 1
-fi
-
-if ! asdf plugin-list | grep elixir >/dev/null; then
+if ! command -v elixir >/dev/null; then
   echo "You must install asdf-elixir before continuing."
   echo "See https://github.com/asdf-vm/asdf-elixir"
-  exit 1
-fi
-if ! asdf plugin-list | grep erlang >/dev/null; then
-  echo "You must install asdf-erlang before continuing."
-  echo "See https://github.com/asdf-vm/asdf-erlang"
   exit 1
 fi
 if ! command -v npm >/dev/null; then
@@ -42,8 +17,10 @@ fi
 echo "Removing previous build artifacts"
 rm -rf assets/node_modules
 rm -rf deps _build
-asdf plugin-update --all
-asdf install
+if command -v asdf >/dev/null; then
+  asdf plugin-update --all
+  asdf install
+fi
 
 echo "Installing dependencies and compiling"
 mix local.hex --force

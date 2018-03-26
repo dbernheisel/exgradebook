@@ -48,4 +48,32 @@ defmodule Exgradebook.Curriculum.CourseTest do
       assert fetched_course_two.id in map_ids(courses)
     end
   end
+
+  describe "search_courses" do
+    test "returns matching courses" do
+      semester = insert(:semester)
+      matching_course_one = insert(:course, semester: semester)
+      _other_course = insert(:course)
+      teacher = insert(:teacher)
+      matching_course_two = insert(:course, teacher: teacher)
+      _other_course = insert(:course)
+      matching_courses = [matching_course_one, matching_course_two]
+      params = %{"semester_id" => semester.id, "teacher_id" => teacher.id}
+
+      [fetched_course_one, fetched_course_two] = Curriculum.search_courses(params)
+
+      assert fetched_course_one.id in map_ids(matching_courses)
+      assert fetched_course_two.id in map_ids(matching_courses)
+    end
+
+    test "returns all when no params" do
+      courses = insert_pair(:course)
+      params = %{"semester_id" => "", "teacher_id" => ""}
+
+      [fetched_course_one, fetched_course_two] = Curriculum.search_courses(params)
+
+      assert fetched_course_one.id in map_ids(courses)
+      assert fetched_course_two.id in map_ids(courses)
+    end
+  end
 end

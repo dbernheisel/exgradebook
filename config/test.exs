@@ -24,6 +24,3 @@ config :exgradebook, Exgradebook.Repo,
   ownership_timeout: 30000,
   pool_size: :erlang.system_info(:schedulers_online),
   pool_overflow: :erlang.system_info(:schedulers_online)
-
-config :wallaby,
-  tmp_dir_prefix: "wallaby-exgradebook"

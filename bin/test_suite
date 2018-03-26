@@ -1,13 +1,6 @@
 #!/bin/sh
 set -e
 
-kill_phantoms() {
-  echo "Killing phantomjs processes"
-  pkill -f "wallaby-exgradebook"
-}
-
-trap kill_phantoms INT
-
 if [ ! -z "$CI" ]; then
   # shellcheck source=/dev/null
   . "$HOME/.asdf/asdf.sh"
