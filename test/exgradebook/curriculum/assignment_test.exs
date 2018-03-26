@@ -76,4 +76,21 @@ defmodule Exgradebook.Curriculum.AssignmentTest do
       assert points_possible == 82
     end
   end
+
+  describe "points_total_for_semester" do
+    test "returns the sum of the assignments for the semester" do
+      student = insert(:student)
+      semester = insert(:semester)
+      course = insert(:course, semester: semester)
+      insert(:enrollment, student: student, course: course)
+      [assignment_one, assignment_two] = insert_pair(:assignment, value: 1, course: course)
+      insert(:grade, value: 1, assignment: assignment_one, student: student)
+      insert(:grade, value: 1, assignment: assignment_two, student: student)
+      _other_assignment = insert(:assignment, value: 1)
+
+      result = Curriculum.points_total_for_semester(student, semester)
+
+      assert result == 2.0
+    end
+  end
 end

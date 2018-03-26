@@ -1,10 +1,10 @@
 defmodule Exgradebook.Curriculum.Query.AssignmentQuery do
   defmacro __using__(_opts) do
     quote do
-
       import Ecto.Query
       alias Exgradebook.Repo
       alias Exgradebook.Curriculum.Assignment
+      alias Exgradebook.Curriculum.StudentCourseSummary
       alias Exgradebook.Users.Student
       alias Exgradebook.Users.Staff
 
@@ -26,6 +26,14 @@ defmodule Exgradebook.Curriculum.Query.AssignmentQuery do
         |> where([a], a.course_id == ^course_id)
         |> select([a], a.value)
         |> Repo.aggregate(:sum, :value)
+      end
+
+      def points_total_for_semester(student, semester) do
+        StudentCourseSummary
+        |> where([s], s.student_id == ^student.id)
+        |> where([s], s.semester_id == ^semester.id)
+        |> select([s], s.assignment_sum)
+        |> Repo.aggregate(:sum, :assignment_sum)
       end
 
       defp scope_grades_to_user(query, %Student{id: student_id}) do

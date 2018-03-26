@@ -28,19 +28,7 @@ defmodule Exgradebook.Curriculum.Query.GradeQuery do
         |> where([s], s.student_id == ^student.id)
         |> where([s], s.semester_id == ^semester.id)
         |> select([s], s.grade_sum)
-        |> IO.inspect
-        |> Repo.all
-        |> Enum.sum
-      end
-
-      def points_total_for_semester(student, semester) do
-        StudentCourseSummary
-        |> where([s], s.student_id == ^student.id)
-        |> where([s], s.semester_id == ^semester.id)
-        |> select([s], s.assignment_sum)
-        |> IO.inspect
-        |> Repo.all
-        |> Enum.sum
+        |> Repo.aggregate(:sum, :grade_sum)
       end
 
       def gpa_for_student_in_semester(student, semester) do
