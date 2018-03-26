@@ -3,17 +3,33 @@ defmodule ExgradebookWeb.CourseView do
   alias Exgradebook.Curriculum.GradeScale
 
   def grade_percentage_for_student_in_course(student, course_id) do
-    points_earned = Curriculum.points_earned_for_student_in_course(student.id, course_id) || 0
-    points_possible = Curriculum.points_possible_for_course(course_id)
+    points_earned =
+      student.id
+      |> Curriculum.points_earned_for_student_in_course(course_id)
+      |> safe_divide
+    points_possible =
+      course_id
+      |> Curriculum.points_possible_for_course
+      |> safe_divide
     (points_earned / points_possible) * 100
   end
 
   def grade_percentage_for_course(course_id) do
     course = Curriculum.get_course!(course_id)
-    points_earned = Curriculum.points_earned_for_course(course_id) || 0
-    points_possible = Curriculum.points_possible_for_course(course_id) * course.enrollments_count
+    points_earned =
+      course_id
+      |> Curriculum.points_earned_for_course
+      |> safe_divide
+    points_possible = (
+      safe_divide(Curriculum.points_possible_for_course(course_id)) *
+        safe_divide(course.enrollments_count)
+    )
     (points_earned / points_possible) * 100
   end
+
+  defp safe_divide(0), do: 1
+  defp safe_divide(nil), do: 1
+  defp safe_divide(number), do: number
 
   def letter_grade(percentage) do
     rounded_percentage =
