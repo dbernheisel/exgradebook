@@ -58,9 +58,11 @@ defmodule Exgradebook.Curriculum.CourseTest do
       matching_course_two = insert(:course, teacher: teacher)
       _other_course = insert(:course)
       matching_courses = [matching_course_one, matching_course_two]
-      params = %{"semester_id" => semester.id, "teacher_id" => teacher.id}
+      semester_params = %{"semester_id" => semester.id, "teacher_id" => ""}
+      teacher_params = %{"semester_id" => "", "teacher_id" => teacher.id}
 
-      [fetched_course_one, fetched_course_two] = Curriculum.search_courses(params)
+      [fetched_course_one] = Curriculum.search_courses(semester_params)
+      [fetched_course_two] = Curriculum.search_courses(teacher_params)
 
       assert fetched_course_one.id in map_ids(matching_courses)
       assert fetched_course_two.id in map_ids(matching_courses)
