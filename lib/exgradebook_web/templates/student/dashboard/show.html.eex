@@ -16,12 +16,12 @@
     </tr>
   </thead>
   <tbody>
-<%= for course <- @courses do %>
-    <tr class="clickable" data-href="<%= student_course_path(@conn, :show, course) %>">
-      <td><%= course.title %></td>
-      <td><%= display_name(course.teacher) %></td>
-      <td></td>
-      <td><%= course.semester.name %></td>
+<%= for enrollment <- @enrollments do %>
+    <tr class="clickable" data-href="<%= student_course_path(@conn, :show, enrollment.course) %>">
+      <td><%= enrollment.course.title %></td>
+      <td><%= display_name(enrollment.course.teacher) %></td>
+      <td><%= grade_percentage_for_student_in_course(@current_user, enrollment.course_id) %></td>
+      <td><%= enrollment.course.semester.name %></td>
 
       <td class="text-right">
       </td>

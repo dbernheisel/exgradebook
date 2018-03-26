@@ -39,16 +39,25 @@ defmodule Mix.Tasks.DevelopmentSeeds do
         insert(:semester, name: "#{name} #{date.year}")
       end)
 
-    teachers
-    |> Enum.flat_map(fn teacher ->
-      [
-        course_with_content(teacher, semester_one, Enum.random(5..20)),
-        course_with_content(teacher, semester_two, Enum.random(5..20)),
-        course_with_content(teacher, semester_two, Enum.random(5..20)),
-      ]
+    courses =
+      teachers
+      |> Enum.flat_map(fn teacher ->
+        [
+          course_with_content(teacher, semester_one, Enum.random(5..20)),
+          course_with_content(teacher, semester_two, Enum.random(5..20)),
+        ]
+      end)
+
+    student_courses =
+      courses
+      |> Enum.take_random(10)
+      |> Enum.map(& insert(:enrollment, student: student, course: &1) && &1)
+
+    Enum.each(student_courses, fn course ->
+      Enum.each(course.assignments, fn assignment ->
+        add_grades_to_assignment(assignment, [student])
+      end)
     end)
-    |> Enum.take_random(10)
-    |> Enum.each(& insert(:enrollment, student: student, course: &1))
 
     UsefulOutput.print()
   end

@@ -40,6 +40,13 @@ defmodule Exgradebook.Curriculum.Query.EnrollmentQuery do
         Repo.get!(Enrollment, enrollment_id)
       end
 
+      def list_enrollments_for_student(student_id) do
+        Enrollment
+        |> where([e, ...], e.student_id == ^student_id)
+        |> Repo.all
+        |> Repo.preload([course: [:teacher, :semester]])
+      end
+
       def list_enrollments_for_course(course_id) do
         Enrollment
         |> join(:inner, [e], s in assoc(e, :student))
