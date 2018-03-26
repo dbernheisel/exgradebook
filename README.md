@@ -60,8 +60,8 @@ Once added to the heroku app, you can also deploy:
 ## Things that could be improved
 
 - Pagination. I didn't use it anywhere
-- Tests. I stopped writing them when I was implementing the last couple
-    of schemas and controllers. There are still lots of tests though.
+- Tests. I slowed down on writing them when I was implementing the last
+    couple of controllers. There are still 100+ tests.
 - No e2e tests.
 - No typespecs
 - No doctests
