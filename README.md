@@ -53,6 +53,10 @@ Once added to the heroku app, you can also deploy:
 
 ![Entity Relationship Diagram](docs/erd.png)
 
+## Screenshots
+
+[screenshots.md](docs/screenshots.md)
+
 ## Things that could be improved
 
 - Pagination. I didn't use it anywhere
