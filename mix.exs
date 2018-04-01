@@ -34,6 +34,7 @@ defmodule Exgradebook.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:distillery, "~> 1.0.0"},
       {:decimal, "~> 1.0"},
       {:doorman, github: "blakewilliams/doorman", branch: "master"},
       {:envy, "~> 1.1"},
