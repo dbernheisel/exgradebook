@@ -57,15 +57,15 @@ config :logger, level: :info
 config :logger, level: :info
 
 config :exgradebook, ExgradebookWeb.Endpoint,
-  http: [port: {:system, "PORT"}, compress: true],
-  url: [scheme: "https", host: System.get_env("HOST"), port: 443],
+  server: true,
+  url: [scheme: "https", host: "${HOST}", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
+  secret_key_base: "${SECRET_KEY_BASE}"
 
 # Configure your database
 config :exgradebook, Exgradebook.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  url: "${DATABASE_URL}",
+  pool_size: "${POOL_SIZE}",
   ssl: true
