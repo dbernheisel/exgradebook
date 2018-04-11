@@ -35,6 +35,7 @@ defmodule Exgradebook.Mixfile do
     [
       {:cowboy, "~> 1.0"},
       {:decimal, "~> 1.0"},
+      {:distillery, "~> 1.0.0"},
       {:doorman, github: "blakewilliams/doorman", branch: "master"},
       {:envy, "~> 1.1"},
       {:ex_machina, "~> 2.0"},
