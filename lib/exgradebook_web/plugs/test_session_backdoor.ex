@@ -6,7 +6,7 @@ defmodule ExgradebookWeb.Plug.TestSessionBackdoor do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    if Mix.env == :test do
+    if System.get_env("ENVIRONMENT_NAME") == "test" do
       case conn.query_params do
         %{"as" => id} ->
           user = Repo.get(Staff, id)
