@@ -20,7 +20,7 @@ defmodule Exgradebook.Mixfile do
   def application do
     [
       mod: {Exgradebook.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :comeonin]
     ]
   end
 
@@ -34,6 +34,7 @@ defmodule Exgradebook.Mixfile do
   defp deps do
     [
       {:cowboy, "~> 1.0"},
+      {:comeonin, "~> 2.4"},
       {:decimal, "~> 1.0"},
       {:distillery, "~> 1.0.0"},
       {:doorman, github: "blakewilliams/doorman", branch: "master"},
