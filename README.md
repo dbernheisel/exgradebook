@@ -32,13 +32,16 @@ that is better to use.
 
 ## Deployment
 
-It's [deployed at heroku at https://exgradebook-production.herokuapp.com][url]
+It's [deployed at heroku at https://exgradebook-production.herokuapp.com][heroku]
 
 Once added to the heroku app, you can also deploy:
 
     % ./bin/deploy production
 
-[url]: https://exgradebook-production.herokuapp.com/
+It's [also deployed at gigalixir at https://thistle-warped-colt.gigalixirapp.com][gigalixir]
+
+[heroku]: https://exgradebook-production.herokuapp.com
+[gigalixir]: https://thistle-warped-colt.gigalixirapp.com
 
 ## Requirements
 

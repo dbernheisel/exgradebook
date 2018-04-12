@@ -45,3 +45,8 @@ if command -v heroku >/dev/null; then
   heroku join --app exgradebook-production || true
   heroku git:remote -r production -a exgradebook-production || true
 fi
+
+if command -v gigalixir >/dev/null; then
+  APP_NAME="thistle-warped-colt"
+  gigalixir set_git_remote "$APP_NAME"
+fi

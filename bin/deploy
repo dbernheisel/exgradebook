@@ -16,6 +16,7 @@ if [ "$target" = "production" ] && [ "$branch" != "master" ]; then
 fi
 
 git push "$target" "$branch:master"
+git push gigalixir "$branch:master"
 
 heroku maintenance:on --app "$app_name"
 
