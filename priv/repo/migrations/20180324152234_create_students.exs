@@ -6,7 +6,7 @@ defmodule Exgradebook.Repo.Migrations.CreateStudents do
       add :id, :binary_id, primary_key: true
       add :first_name, :string
       add :last_name, :string
-      add :email, :citext
+      add :email, :string
       add :hashed_password, :string
       add :session_secret, :string
 
