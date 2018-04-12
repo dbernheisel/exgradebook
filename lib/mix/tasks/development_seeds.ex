@@ -5,9 +5,6 @@ defmodule Mix.Tasks.DevelopmentSeeds do
 
   @shortdoc "Insert the seeds for development"
   def run(_arguments) do
-    Mix.Task.run("ecto.migrate", [])
-    Mix.Task.run("app.start", [])
-
     UsefulOutput.start_link()
 
     for table_name <- tables_to_truncate() do
