@@ -66,6 +66,6 @@ config :exgradebook, ExgradebookWeb.Endpoint,
 # Configure your database
 config :exgradebook, Exgradebook.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: "${DATABASE_URL}",
-  pool_size: "${POOL_SIZE}",
+  url: System.get_env("DATABASE_URL")
+  pool_size: System.get_env("POOL_SIZE")
   ssl: true

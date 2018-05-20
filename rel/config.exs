@@ -16,12 +16,14 @@ use Mix.Releases.Config,
 environment :dev do
   set dev_mode: true
   set include_erts: false
+  set include_system_libs: false
   set cookie: :"sR8jd_k3;BMu54/kG`f/vVM=|9[.jp6X<OUfKy~v`/1s78sX.Ay4W!YFWo8NzHbO"
 end
 
 environment :prod do
   set include_erts: true
   set include_src: false
+  set include_system_libs: true
   set cookie: :"W9aD1)D/6NHogrHOrp~7eI?lohzcm^C57wcL/0zR|AxD&rv$)u)N=I`LL=aq)/@D"
 end
 
